@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CV Compiler</title>
+	<style>
+		:root {
+			/* Catppuccin Mocha Palette */
+			--mocha-crust: #11111b;
+			--mocha-mantle: #181825;
+			--mocha-base: #1e1e2e;
+			--mocha-surface0: #313244;
+			--mocha-surface1: #45475a;
+			--mocha-surface2: #585b70;
+			--mocha-overlay0: #6c7086;
+			--mocha-overlay1: #7f849c;
+			--mocha-overlay2: #9399b2;
+			--mocha-subtext0: #a6adc8;
+			--mocha-subtext1: #bac2de;
+			--mocha-text: #cdd6f4;
+
+			/* Accents */
+			--mocha-blue: #89b4fa;
+			--mocha-mauve: #cba6f7;
+			--mocha-sapphire: #74c7ec;
+			--mocha-peach: #fab387;
+			--mocha-green: #a6e3a1;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+			background: linear-gradient(135deg, var(--mocha-mantle) 0%, var(--mocha-base) 50%, var(--mocha-crust) 100%);
+			min-height: 100vh;
+			padding: 2rem;
+			color: var(--mocha-text);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		h1 {
+			text-align: center;
+			font-size: 3rem;
+			font-weight: 700;
+			margin-bottom: 2rem;
+			background: linear-gradient(135deg, var(--mocha-blue), var(--mocha-mauve));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			text-shadow: 0 0 30px rgba(137, 180, 250, 0.5);
+		}
+
+		.container {
+			width: min(600px, 90vw);
+			background: rgba(30, 30, 46, 0.95);
+			backdrop-filter: blur(20px);
+			border-radius: 20px;
+			padding: 1.5rem;
+			box-shadow:
+				0 25px 50px rgba(0, 0, 0, 0.5),
+				0 0 0 1px rgba(255, 255, 255, 0.05);
+			border: 1px solid var(--mocha-surface0);
+		}
+
+		.sample-download,
+		.submit-wrapper {
+			text-align: center;
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+		}
+
+		.file-group {
+			background: var(--mocha-surface1);
+			border-radius: 16px;
+			padding: 1.5rem;
+			margin-bottom: 1.5rem;
+			border: 1px solid var(--mocha-surface2);
+		}
+
+		.file-wrapper {
+			display: flex;
+			align-items: center;
+			gap: 1.5rem;
+			padding: 1rem 0;
+			margin-bottom: 0.5rem;
+		}
+
+		.file-wrapper:last-child {
+			margin-bottom: 0;
+		}
+
+		.file-wrapper input[type="file"] {
+			position: absolute;
+			left: -9999px;
+		}
+
+		.file-button,
+		input[type="submit"] {
+			width: 100%;
+			padding: 0.75rem 1.5rem;
+			border: 2px solid var(--mocha-mauve);
+			border-radius: 12px;
+			background: var(--mocha-surface2);
+			color: var(--mocha-text);
+			cursor: pointer;
+			font-size: 1rem;
+			font-weight: 600;
+			text-decoration: none;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			transition: all 0.3s ease;
+			position: relative;
+			overflow: hidden;
+			min-height: 52px;
+			backdrop-filter: blur(10px);
+		}
+
+		.file-button:hover {
+			background: var(--mocha-mauve);
+			border-color: var(--mocha-mauve);
+			color: var(--mocha-crust);
+			transform: translateY(-2px);
+			box-shadow:
+				0 10px 25px rgba(203, 166, 247, 0.4),
+				0 0 0 1px var(--mocha-mauve);
+		}
+
+		input[type="submit"] {
+			background: var(--mocha-surface2);
+			border-color: var(--mocha-blue);
+			color: var(--mocha-blue);
+			font-weight: 700;
+		}
+
+		input[type="submit"]:hover {
+			background: var(--mocha-blue);
+			border-color: var(--mocha-blue);
+			color: var(--mocha-crust);
+			transform: translateY(-2px);
+			box-shadow:
+				0 10px 25px rgba(137, 180, 250, 0.4),
+				0 0 0 1px var(--mocha-blue);
+		}
+
+		input[type="submit"]:active {
+			transform: translateY(-1px);
+		}
+	</style>
+</head>
+
+<body>
+	<h1>CV Compiler</h1>
+
+	<div class="container">
+		<form method="post" enctype="multipart/form-data">
+			<div class="sample-download">
+				<a href="<VAR> url_for('download_sample') </VAR>" download class="file-button">Download
+					sample YAML</a>
+			</div>
+
+			<div class="file-group">
+				<div class="file-wrapper">
+					<label for="file" class="file-button">Select source file* (.yaml or
+						.tex)</label>
+					<input type="file" id="file" name="file" accept=".yaml,.yml,.tex" required>
+				</div>
+
+				<div class="file-wrapper">
+					<label for="photo" class="file-button">Select image file (optional)</label>
+					<input type="file" id="photo" name="photo" accept="image/*">
+				</div>
+			</div>
+
+			<div class="submit-wrapper">
+				<input type="submit" value="Generate PDF">
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

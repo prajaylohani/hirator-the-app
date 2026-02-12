@@ -1,0 +1,57 @@
+meta:
+  margin: 0.02\paperwidth
+  fontstyle: TeX Gyre Heros
+  fontsize: 10pt
+  titlesize: 42pt
+  sidebarcolor: SkyBlue
+
+contact:
+  name: firstname lastname
+  email: id@domain.com
+  linkedin: https://linkedin.com/id
+  phone: +12 3456789
+  address: str. 12, 34567 city
+
+work_experience:
+  - position: position
+    company: company
+    location: city, country
+    time:
+      from: then
+      till: now
+    description:
+      - did this
+      - did that
+      - and that
+
+education:
+  - degree: degree
+    institute: institute
+    location: country
+    time:
+      from: then
+      till: now
+    thesis:
+      title: thesis title
+      institute: institute
+      location: country
+      description:
+        - did this
+        - did that
+
+certifications:
+  - name: certification
+    affiliation: affiliation
+    platform: platform
+    time:
+      from: then
+      till: now
+    content:
+      - this
+      - that
+      - and that
+
+hobbies:
+  - this
+  - that
+  - and that
