@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 COPY requirements.txt .
 COPY templates/ templates/
+COPY static/ static/
 COPY fonts/ fonts/
 # COPY images/ images/
 COPY app.py .

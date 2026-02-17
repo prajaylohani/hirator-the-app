@@ -1,6 +1,4 @@
 # UPNEXT:
-- GIT ALL!
-- upload niri config
 
 # do this, do that, king in the castle, king in the castle
 - [x] docker runs everything in a container at the top level
@@ -38,11 +36,14 @@
 - [x] no, bc sometimes photo: auto-upload without pressing upload button and drag-drop feature
 - [x] contact part of the cv is scuffed bc need hfill and | between entries idk how to do this elegantly wo escaping string join fuckery removed the line (|) for now as temp fix
 - [ ] check temp directory
-- [ ] why is the python syntax highlighting better on mac's nvim than linux's nvim? is it pylint?
+- [x] why is the python syntax highlighting better on mac's nvim than linux's nvim? bc treesitter a bitch! branch: master shit
 - [ ] option to edit yaml/tex files online
-- [ ] add light/dark mode in html
-- [ ] separate css
-- [ ] there's no indication if the file is uploaded/selected
+- [x] add light/dark mode in html
+- [x] separate css
+- [x] there's no indication if the file is uploaded/selected
+- [ ] restructure the project, refer below
+  - [ ] fonts and images to static?
+- [ ] flutter?
 
 ![Architecture](./architecture.png "Stages' Architecture")
 
@@ -162,3 +163,29 @@ hobbies:
 - STIX Two Text
 - STIX Two Math
  
+
+## typical docker flask app project structure:
+```
+myflaskapp/
+├── app/
+│   ├── __init__.py        # create_app(), register blueprints, config loading
+│   ├── routes.py          # or views.py / blueprints package
+│   ├── models.py          # DB models (SQLAlchemy, etc.)
+│   ├── extensions.py      # db, login_manager, etc. (optional)
+│   ├── templates/
+│   │   ├── base.html
+│   │   └── index.html
+│   └── static/
+│       ├── css/
+│       ├── js/
+│       └── img/
+├── tests/
+│   └── test_basic.py
+├── Dockerfile
+├── docker-compose.yml     # optional but very common
+├── requirements.txt       # Python dependencies
+├── config.py              # app configuration (Dev/Prod), or a config/ package
+├── .env                   # environment variables (not committed)
+├── .dockerignore
+└── README.md
+```
