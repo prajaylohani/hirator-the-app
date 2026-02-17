@@ -43,7 +43,11 @@
 - [x] there's no indication if the file is uploaded/selected
 - [ ] restructure the project, refer below
   - [ ] fonts and images to static?
-- [ ] flutter?
+- [x] flutter?: nah, too much overhead
+- [x] webpage scuffed on mobile:
+  - [x] title's (in heading) fine, but body is left aligned and bleeding over the left edge
+  - [x] issue when screen size smaller than the body content width? body doesnt shrink?
+  - [x] add adaptive font size or column width or sth
 
 ![Architecture](./architecture.png "Stages' Architecture")
 

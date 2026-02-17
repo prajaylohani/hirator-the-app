@@ -10,33 +10,31 @@
 
 <body>
 	<h1>Upload new file</h1>
-	<div class="form-example">
-		<form method="post" enctype="multipart/form-data" class="form-example">
-			<div class="form-example">
-				<input type="button" id="sample"
-					onclick="window.location.href=&quot;<VAR> url_for('download_sample') </VAR>&quot;"
-					value="Download Sample YAML">
-			</div>
+	<form method="post" enctype="multipart/form-data">
+		<div>
+			<input type="button" id="sample"
+				onclick="window.location.href=&quot;<VAR> url_for('download_sample') </VAR>&quot;"
+				value="Download Sample YAML">
+		</div>
 
-			<div class="form-example">
-				<label for="file">
-					Select source file* (.yaml or .tex)
-				</label>
-				<input type="file" id="file" name="file" accept=".yaml,.yml,.tex" required>
-			</div>
+		<div>
+			<label for="file">
+				Select source file* (.yaml or .tex)
+			</label>
+			<input type="file" id="file" name="file" accept=".yaml,.yml,.tex" required>
+		</div>
 
-			<div class="form-example">
-				<label for="photo">
-					Select image file (optional)
-				</label>
-				<input type="file" id="photo" name="photo" accept="image/*">
-			</div>
+		<div>
+			<label for="photo">
+				Select image file (optional)
+			</label>
+			<input type="file" id="photo" name="photo" accept="image/*">
+		</div>
 
-			<div class="form-example">
-				<input type=submit value="Generate PDF">
-			</div>
-		</form>
-	</div>
+		<div>
+			<input type=submit value="Generate PDF">
+		</div>
+	</form>
 </body>
 
 </html>
