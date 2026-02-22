@@ -1,4 +1,6 @@
 # UPNEXT:
+- handle photos
+- photo cv template
 
 # do this, do that, king in the castle, king in the castle
 - [x] docker runs everything in a container at the top level
@@ -37,17 +39,35 @@
 - [x] contact part of the cv is scuffed bc need hfill and | between entries idk how to do this elegantly wo escaping string join fuckery removed the line (|) for now as temp fix
 - [ ] check temp directory
 - [x] why is the python syntax highlighting better on mac's nvim than linux's nvim? bc treesitter a bitch! branch: master shit
-- [ ] option to edit yaml/tex files online
+- [x] option to edit yaml/tex files online
 - [x] add light/dark mode in html
 - [x] separate css
 - [x] there's no indication if the file is uploaded/selected
 - [ ] restructure the project, refer below
-  - [ ] fonts and images to static?
+  - [ ] fonts and images to static? update directories in tex, images not static so uploads? tf is images dir?
 - [x] flutter?: nah, too much overhead
 - [x] webpage scuffed on mobile:
   - [x] title's (in heading) fine, but body is left aligned and bleeding over the left edge
   - [x] issue when screen size smaller than the body content width? body doesnt shrink?
   - [x] add adaptive font size or column width or sth
+- [x] setup raspi for hosting: docker, tailscale, etc.
+- [x] changes in the textarea doesnt go to server file upload: so sample+edit doesnt work as the app currently only take uploaded file as input: make the generate pdf button submit textarea value as file if not empty?
+- [x] add favicon
+- [ ] download button doesnt take back on mobile bookmark thing, check
+- [x] load sample button is broken: jinja url replace not working in script (bc its static), does it only replace index.html?
+- [x] send text to flask and convert to file in server (if needed)?
+  - [x] text input is the primary input approach, not file input
+  - [ ] yaml is the primary input format, tex is an "advanced" option: "tex mode"
+  - [x] file input / sample file is used to fill the text area
+  - [x] find how to use xelatex with text, else convert text to file in flask
+    - [x] prolly better to create a tex file in server, easy for download later (both yaml and tex)
+  - [-] clear that js script!
+  - [x] clear up html, id is used for js
+  - [ ] rename variables / functions 
+  - [x] fix download yaml and download tex buttons, they won't work without generate pdf
+  - [x] fix text area placeholder
+- [ ] syntax highlighting in online editer?
+- [x] spacing between buttons
 
 ![Architecture](./architecture.png "Stages' Architecture")
 
@@ -141,7 +161,7 @@ hobbies:
 
 ### 1. TeX Gyre Collection (Most common, XeLaTeX-ready)
 - TeX Gyre Termes      # Times New Roman
-- TeX Gyre Heros       # Arial/Helvetica  
+- TeX Gyre Heros       # Arial/Helvetica
 - TeX Gyre Pagella     # Palatino
 - TeX Gyre Bonum       # Bookman
 - TeX Gyre Schola      # Utopia

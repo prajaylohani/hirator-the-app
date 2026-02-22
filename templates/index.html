@@ -5,36 +5,29 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>hirator</title>
-	<link rel="stylesheet" href="../static/css/style.css">
+	<link rel="stylesheet" href="<VAR> url_for('static', filename='css/style.css') </VAR>">
+	<link rel="shortcut icon" href="<VAR> url_for('static', filename='favicon.png') </VAR>">
 </head>
 
 <body>
 	<h1>Upload new file</h1>
 	<form method="post" enctype="multipart/form-data">
-		<div>
-			<input type="button" id="sample"
-				onclick="window.location.href=&quot;<VAR> url_for('download_sample') </VAR>&quot;"
-				value="Download Sample YAML">
-		</div>
+		<label for="fileInput">Select source file* (.yaml or .tex)</label>
+		<input type="file" id="fileInput" accept=".yaml,.yml,.tex">
+		<button type="button" onclick="loadSample(&quot;<VAR> url_for('download_sample') </VAR>&quot;)">
+			Or load sample</button>
 
-		<div>
-			<label for="file">
-				Select source file* (.yaml or .tex)
-			</label>
-			<input type="file" id="file" name="file" accept=".yaml,.yml,.tex" required>
-		</div>
+		<input type="text" name="filename" placeholder="Enter document name (optional)">
+		<textarea id="preview" name="preview" placeholder="Write document contents here..." required></textarea>
 
-		<div>
-			<label for="photo">
-				Select image file (optional)
-			</label>
-			<input type="file" id="photo" name="photo" accept="image/*">
-		</div>
+		<label for="photo">Select image file (optional)</label>
+		<input type="file" id="photo" name="photo" accept="image/*">
 
-		<div>
-			<input type=submit value="Generate PDF">
-		</div>
+		<button type="submit" name="action" value="download_yaml">Download YAML</button>
+		<button type="submit" name="action" value="download_tex">Download TEX</button>
+		<button type="submit" name="action" value="download_pdf">Download PDF</button>
 	</form>
+	<script src="../static/js/script.js"></script>
 </body>
 
 </html>
