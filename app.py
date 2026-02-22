@@ -73,6 +73,24 @@ def upload_text():
         # read raw data
         raw_data = request.form.get("preview", "")
 
+        if action == "compile_tex":
+            # save tex
+            with open(tex_path, "w", encoding="utf-8") as f:
+                f.write(raw_data)
+
+            subprocess.run(
+                [
+                    "xelatex",
+                    "-interaction=nonstopmode",
+                    "-halt-on-error",
+                    "-output-directory=" + app.config["EXPORT_FOLDER"],
+                    tex_path,
+                ],
+                text=True,
+                timeout=60,
+            )
+            return redirect(url_for("download_pdf"))
+
         # save yaml
         with open(yaml_path, "w", encoding="utf-8") as f:
             f.write(raw_data)

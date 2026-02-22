@@ -14,20 +14,21 @@
 - [x] how about json? it has nested structure
 - [x] yaml better: easy read, easy edit, no trailing commas issue, more flexible, easy escaping
 - [x] architecture: `flask -> yaml -> latex -> pdf`
-- [ ] use yaml templates to create fields in flask: changing yaml template will update flask fields
+- [x] use yaml templates to create fields in flask: changing yaml template update flask fields: changed direction, not more gui fields
 - [ ] handle photo
 - [x] allow yaml as input to create tex
 - [ ] various tex templates for different styles
-- [ ] yaml things:
+- [x] yaml things:
     - [x] care about handling optional fields: everything is optional
     - [x] care about handling multiples/variable entries
     - [x] care about escaping special symbols like %
     - [x] add meta fields like font, font size, margin, title size, etc.
     - [x] custom fonts are complicated due to adding them in directory
-        - [ ] some more options with \usepackage
+        - [x] some more options with \usepackage: let this be a "tex mode" advanced feature
+        - [x] fonts in fonts folder works only in "tex mode"
     - [x] give sample yaml as download link
 - [x] update dotfiles with streamlink and mpv conf: no mpvc needed, no mpv conf just reload script might not be needed
-- [x] stage i flask design: complete!
+- [x] stage i flask design: completeeasily !
 - [ ] add meaningful exceptions/error messages:
     - [ ] failed pdf compilation
     - [ ] missing required values
@@ -53,28 +54,28 @@
 - [x] setup raspi for hosting: docker, tailscale, etc.
 - [x] changes in the textarea doesnt go to server file upload: so sample+edit doesnt work as the app currently only take uploaded file as input: make the generate pdf button submit textarea value as file if not empty?
 - [x] add favicon
-- [ ] download button doesnt take back on mobile bookmark thing, check
+- [x] download button doesnt take back on mobile bookmark thing, check: not fixed, prolly an ios thing
 - [x] load sample button is broken: jinja url replace not working in script (bc its static), does it only replace index.html?
 - [x] send text to flask and convert to file in server (if needed)?
   - [x] text input is the primary input approach, not file input
-  - [ ] yaml is the primary input format, tex is an "advanced" option: "tex mode"
+  - [x] yaml is the primary input format, tex is an "advanced" option: "tex mode"
   - [x] file input / sample file is used to fill the text area
   - [x] find how to use xelatex with text, else convert text to file in flask
     - [x] prolly better to create a tex file in server, easy for download later (both yaml and tex)
-  - [-] clear that js script!
+  - [x] clear that js script!
   - [x] clear up html, id is used for js
-  - [ ] rename variables / functions 
+  - [x] rename variables / functions 
   - [x] fix download yaml and download tex buttons, they won't work without generate pdf
   - [x] fix text area placeholder
-- [ ] syntax highlighting in online editer?
+- [x] syntax highlighting in online editor?
+  - [x] can be done easily with prism, but the implementation is so fuckasss i'm not doing it!
 - [x] spacing between buttons
-
-![Architecture](./architecture.png "Stages' Architecture")
+- [ ] add references / hints
 
 ## the commands:
-- for bash: `docker run -it --rm --name latex -v "$PWD":/usr/src/app -w /usr/src/app registry.gitlab.com/islandoftex/images/texlive:latest bash`
-- for xelatex compile: `docker run -i --rm --name latex -v "$PWD":/usr/src/app -w /usr/src/app registry.gitlab.com/islandoftex/images/texlive:latest xelatex CV.tex`
-- for localhost pdf: `docker run --rm -p 8000:8000 hirator:latest`
+- docker build: `docker build . -t hirator`
+- docker run: `docker run --name hirator --rm -p 5100:5100 hirator:latest`
+- docker debug: `docker exec -it hirator /bin/bash`
 
 ## container:
 - copy: tex templates, fonts, flask app (python codes)
