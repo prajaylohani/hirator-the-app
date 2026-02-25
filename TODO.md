@@ -1,6 +1,4 @@
 # UPNEXT:
-- handle photos
-- photo cv template
 
 # do this, do that, king in the castle, king in the castle
 - [x] docker runs everything in a container at the top level
@@ -15,9 +13,9 @@
 - [x] yaml better: easy read, easy edit, no trailing commas issue, more flexible, easy escaping
 - [x] architecture: `flask -> yaml -> latex -> pdf`
 - [x] use yaml templates to create fields in flask: changing yaml template update flask fields: changed direction, not more gui fields
-- [ ] handle photo
+- [x] handle photo
 - [x] allow yaml as input to create tex
-- [ ] various tex templates for different styles
+- [x] various tex templates for different styles
 - [x] yaml things:
     - [x] care about handling optional fields: everything is optional
     - [x] care about handling multiples/variable entries
@@ -30,16 +28,16 @@
 - [x] update dotfiles with streamlink and mpv conf: no mpvc needed, no mpv conf just reload script might not be needed
 - [x] stage i flask design: completeeasily !
 - [ ] add meaningful exceptions/error messages:
-    - [ ] failed pdf compilation
-    - [ ] missing required values
+    - [ ] failed pdf compilation: show latex compilation warnings / logs?
+    - [x] missing required values: handled by html
     - [ ] uploading wrong file format
-    - [ ] everything breaks when file not uploaded (if just photo uploaded for example)
-    - [ ] refreshing doesn't reset a broken app
-    - [ ] refreshing doesn't the app, it continues from the last buffer: maybe temp dir fixes this?
-- [x] no, bc sometimes photo: auto-upload without pressing upload button and drag-drop feature
+    - [x] everything breaks when file not uploaded (if just photo uploaded for example): upload not a required field
+    - [ ] refreshing doesn't reset a broken app: make app start a new instance on refresh, handle running / broken instances
+    - [ ] refreshing doesn't the app, it continues from the last buffer: maybe temp dir fixes this? app instance thing again might fix
+- [x] auto-upload without pressing upload button and drag-drop feature: no, bc sometimes photo
 - [x] contact part of the cv is scuffed bc need hfill and | between entries idk how to do this elegantly wo escaping string join fuckery removed the line (|) for now as temp fix
 - [ ] check temp directory
-- [x] why is the python syntax highlighting better on mac's nvim than linux's nvim? bc treesitter a bitch! branch: master shit
+- [x] why is the python syntax highlighting better on mac's nvim than linux's nvim? bc treesitter a bitch! branch: master branch shit
 - [x] option to edit yaml/tex files online
 - [x] add light/dark mode in html
 - [x] separate css
@@ -68,9 +66,29 @@
   - [x] fix download yaml and download tex buttons, they won't work without generate pdf
   - [x] fix text area placeholder
 - [x] syntax highlighting in online editor?
-  - [x] can be done easily with prism, but the implementation is so fuckasss i'm not doing it!
+  - [x] can be done easily with prism, but the implementation is so ass i'm not doing it!
 - [x] spacing between buttons
 - [ ] add references / hints
+- [x] update margin to hmargin and vmargin, add option for columnratio too,  in yaml and tex jinja
+- [x] sth wrong with the margin change logic in tex, check sidebar too
+- [x] clean cv-image-jinja before pushing
+- [x] create german templates: the current cv-image template is german so far
+- [ ] add option to select cv template: in yaml? try reading from safe_load output
+- [x] can \newpage be injected from yaml?: too complicated, use tex mode
+- [x] add profile section with support for both para and bullets
+- [x] fix \\\\ and vspace drama:
+  - [x] \\\\ outside tabularx = underfull + 3 pages
+  - [x] last bigskip might cause extra page: move bigskip to before table
+  - [x] resolve the \\\\ in itemize entries: same as above? before itemize?
+- [x] bullets only profile has more space between bullets and top line above it: fix vspace{-\baselineskip}
+- [x] why are there so many tabularx? tables arent even used now, or are they? remove if possible: nah hes carrying the formatting heavy!
+- [x] why does sidebar compiles correctly on second compile: using latexmk to handle multiple compiles automatically
+- [ ] what happens if 2 or more people try to use the app?
+  - [ ] can the site handle multiple app instances
+  - [ ] prolly need to use temp directory to avoid overwriting in the exports and uploads directory
+- [x] clear slurs before push
+- [x] add urls for log: no redirects
+- [ ] set max text limit
 
 ## the commands:
 - docker build: `docker build . -t hirator`
@@ -89,6 +107,7 @@
 - run xelatex to compile pdf
 - upload pdf to webapp
 
+- [ ] update this, or remove from here?
 ## db scheme for table types in cv (* optional):
 
 ```yaml

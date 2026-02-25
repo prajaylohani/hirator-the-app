@@ -1,0 +1,364 @@
+%! TEX program = xelatex
+% chktex-file 44                                % suppress ChkTeX: User regex
+% chktex-file 8                                 % suppress ChkTeX: Wrong length of dash may have been used
+
+<BLOCK> set meta = meta|default({}) </BLOCK>
+\documentclass[<VAR> meta.fontsize|default('10pt', true) </VAR>]{extarticle} % switched from article to extarticle to avoid extsizes package import
+\usepackage{array, multirow}
+\newlength{\hmargin}
+\setlength{\hmargin}{<VAR> meta.hmargin|default('0.5cm', true) </VAR>}
+\newlength{\vmargin}
+\setlength{\vmargin}{<VAR> meta.vmargin|default('1cm', true) </VAR>}
+\usepackage[a4paper,
+    hmargin=\hmargin,
+    vmargin=\vmargin,
+]{geometry}
+\usepackage{parskip}                            % remove indentation at the start of the para
+\usepackage{graphicx}                           % required for inserting images
+\graphicspath{{./}}                             % images directory
+\usepackage{booktabs}                           % horizontal line thickness
+\usepackage[english,ngerman]{babel}             % hyphenation and language adaptation
+\usepackage[svgnames]{xcolor}                   % additional colors for url
+\usepackage{microtype}                          % improves typesetting quality and eliminates underfull box warnings
+\usepackage{tabularx}
+\usepackage{enumitem}                           % adjust parameters for enum items
+\usepackage{multicol}                           % multiple columns
+\usepackage{tikz}                               % graphics
+\usepackage{paracol}                            % parallel columns
+\usepackage{everypage-1x}                       % self explainatory
+
+% hyperlinks preamble
+\usepackage{hyperref}                           % hyperlinks package
+\hypersetup{
+    colorlinks=true,
+    % linkcolor=blue,
+    % filecolor=magenta,
+    urlcolor=black,
+    % pdftitle={Overleaf Example},
+    % pdfpagemode=FullScreen,
+}
+
+% font preamble
+\pagestyle{empty}                               % remove page numbers
+\hyphenpenalty=10000                            % very high hyphenation penalty to avoid hyphenation
+\usepackage{fontspec}                           % Font package
+\sloppy                                         % help LaTeX to better handle line breaks (fixed text overflowing in right margin)
+
+\setmainfont{<VAR> meta.fontstyle|default('TeX Gyre Termes', true) </VAR>}
+
+% custom fonts off for now
+% \setmainfont{HankenGrotesk}[
+%     Path=../fonts/HankenGrotesk/static/,         % Path to the directory containing the font file
+%     Extension=.ttf,                             % Extension of the font file
+%     UprightFont=*-Regular,                      % The font for normal text
+%     BoldFont=*-Bold,                            % The font for bold text
+%     ItalicFont=*-Italic,                        % The font for italic text
+%     BoldItalicFont=*-BoldItalic,                % The font for bold italic text
+%     Numbers=Tabular                             % Make the numbers monospaced
+% ]
+
+% table preamble
+\setlist[itemize]{                              % define global itemize parameters
+    leftmargin=1em,
+    itemsep=0pt,
+    parsep=0pt,
+    topsep=0pt,
+    partopsep=0pt,
+}
+
+% paracol preamble
+\setlength{\columnsep}{2\hmargin}     % space between columns
+\newcommand{\colratio}{<VAR> meta.columnratio|default('0.22', true) </VAR>}
+\columnratio{\colratio}  % ratio on textwidth = paperwidth - hmargins - columnseps
+
+% sidebar preamble
+\newcommand{\sidebarcolor}{
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[<VAR> meta.sidebarcolor|default('LightSkyBlue', true) </VAR>]
+  % \fill[LightSkyBlue]
+  % \fill[SlateGray]
+  % \fill[CadetBlue]
+  % \fill[DarkSeaGreen]
+    (current page.north west) % top left
+    rectangle
+    ([xshift=\colratio*(\textwidth - \columnsep) + 2\hmargin]current page.south west); % bottom right
+\end{tikzpicture}
+}
+\AddEverypageHook{\sidebarcolor}
+
+\begin{document}
+
+%%%%%% PAGE 1 %%%%%%
+\begin{paracol}{2}
+
+<BLOCK> if meta.imagename </BLOCK>
+\includegraphics[width=\columnwidth]{<VAR> meta.imagename </VAR>} \\
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if contact </BLOCK>
+\medskip
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{KONTAKT} \\
+    \toprule[1pt]
+
+    <BLOCK> if contact.linkedin </BLOCK>
+    \href{https://www.<VAR> contact.linkedin </VAR>}{<VAR> contact.linkedin </VAR>} \\
+    <BLOCK> endif </BLOCK>
+    <BLOCK> if contact.email </BLOCK>
+    \href{mailto:<VAR> contact.email </VAR>}{<VAR> contact.email </VAR>} \\
+    <BLOCK> endif </BLOCK>
+    <BLOCK> if contact.phone </BLOCK>
+    \href{tel:<VAR> contact.phone </VAR>}{<VAR> contact.phone </VAR>} \\
+    <BLOCK> endif </BLOCK>
+    <BLOCK> if contact.address </BLOCK>
+    <VAR> contact.address </VAR> \\
+    <BLOCK> endif </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if skills </BLOCK>
+\medskip
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{FÄHIGKEITEN} \\
+    \toprule[1pt]
+
+    <BLOCK> for skill in skills </BLOCK>
+        <BLOCK> if not loop.first </BLOCK>
+
+        \\
+        \toprule[0.5pt]
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if skill.category </BLOCK>
+        \textbf{<VAR> skill.category </VAR>} \\
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if skill.list </BLOCK>
+        <BLOCK> for item in skill.list </BLOCK>
+            <VAR> item </VAR> \\
+        <BLOCK> endfor </BLOCK>
+        <BLOCK> endif </BLOCK>
+    <BLOCK> endfor </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+%%%%%% PAGE BREAK FOR LEFT COLUMN %%%%%%
+% \newpage
+
+<BLOCK> if softskills </BLOCK>
+\medskip
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{SOFT SKILLS} \\
+    \toprule[1pt]
+
+    <BLOCK> for softskill in softskills </BLOCK>
+        <VAR> softskill </VAR> \\
+    <BLOCK> endfor </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if hobbies </BLOCK>
+\medskip
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{HOBBYS} \\
+    \toprule[1pt]
+
+    <BLOCK> for hobby in hobbies </BLOCK>
+        <VAR> hobby </VAR> \\
+    <BLOCK> endfor </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+%%%%%% RIGHT COLUMN %%%%%%
+\switchcolumn
+<BLOCK> if contact </BLOCK>
+<BLOCK> if contact.name </BLOCK>
+{\centering \fontsize{<VAR> meta.titlesize|default('42pt', true) </VAR>}{0} \selectfont <VAR> contact.name </VAR> \par}
+<BLOCK> endif </BLOCK>
+<BLOCK> if contact.position </BLOCK>
+{\centering\Large\textit{<VAR> contact.position </VAR>}\par}
+<BLOCK> endif </BLOCK>
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if profile </BLOCK>
+\medskip
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{PROFIL} \\
+    \toprule[1pt]
+
+    <BLOCK> if profile.paragraph </BLOCK>
+    <VAR> profile.paragraph </VAR>
+    <BLOCK> endif </BLOCK>
+    <BLOCK> if profile.list </BLOCK>
+    <BLOCK> if not profile.paragraph </BLOCK>
+    \vspace{-\medskipamount}
+    <BLOCK> endif </BLOCK>
+    \begin{itemize}
+    <BLOCK> for item in profile.list </BLOCK>
+        \item <VAR> item </VAR>
+    <BLOCK> endfor </BLOCK>
+    \end{itemize}
+    <BLOCK> endif </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if workexperience </BLOCK>
+\medskip
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{BERUFSERFAHRUNG} \\
+    \toprule[1pt]
+
+    <BLOCK> for work in workexperience </BLOCK>
+        <BLOCK> if not loop.first </BLOCK>
+
+        \\\\
+        \toprule[0.5pt]
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if work.position </BLOCK>
+        \textbf{<VAR> work.position </VAR>}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if work.time </BLOCK>
+        <BLOCK> if work.time.from and work.time.till </BLOCK>
+        \hfill \textbf{<VAR> work.time.from </VAR> – <VAR> work.time.till </VAR>}
+        <BLOCK> else </BLOCK>
+        \hfill \textbf{<VAR> work.time.from|default('', true) </VAR><VAR> work.time.till|default('', true) </VAR>}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if work.company or work.location </BLOCK>
+        \\
+        <BLOCK> if work.company </BLOCK>
+        <VAR> work.company </VAR> 
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if work.location </BLOCK>
+        \textit{(<VAR> work.location </VAR>)}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if work.description </BLOCK>
+        \begin{itemize}
+        <BLOCK> for desc in work.description </BLOCK>
+            \item <VAR> desc </VAR>
+        <BLOCK> endfor </BLOCK>
+        \end{itemize}
+        <BLOCK> endif </BLOCK>
+    <BLOCK> endfor </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if education </BLOCK>
+\medskip
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{AUSBILDUNG} \\
+    \toprule[1pt]
+
+    <BLOCK> for study in education </BLOCK>
+        <BLOCK> if not loop.first </BLOCK>
+
+        \\\\
+        \toprule[0.5pt]
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.degree </BLOCK>
+        \textbf{<VAR> study.degree </VAR>}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.time </BLOCK>
+        <BLOCK> if study.time.from and study.time.till </BLOCK>
+        \hfill \textbf{<VAR> study.time.from </VAR> – <VAR> study.time.till </VAR>}
+        <BLOCK> else </BLOCK>
+        \hfill \textbf{<VAR> study.time.from|default('', true) </VAR><VAR> study.time.till|default('', true) </VAR>}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.institute or study.location </BLOCK>
+        \\
+        <BLOCK> if study.institute </BLOCK>
+        <VAR> study.institute </VAR> 
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.location </BLOCK>
+        \textit{(<VAR> study.location </VAR>)}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.focus </BLOCK>
+        \\
+        \textbf{Schwerpunkt}: 
+        <VAR> study.focus | join(', ') </VAR>
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.thesis </BLOCK>
+        <BLOCK> if study.thesis.title </BLOCK>
+        \\
+        \textbf{<VAR> study.thesis.title </VAR>}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.thesis.institute or study.thesis.location </BLOCK>
+        \\
+        <BLOCK> if study.thesis.institute </BLOCK>
+        <VAR> study.thesis.institute </VAR> 
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.thesis.location </BLOCK>
+        \textit{(<VAR> study.thesis.location </VAR>)}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if study.thesis.description </BLOCK>
+        \begin{itemize}
+        <BLOCK> for desc in study.thesis.description </BLOCK>
+            \item <VAR> desc </VAR>
+        <BLOCK> endfor </BLOCK>
+        \end{itemize}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> endif </BLOCK>
+    <BLOCK> endfor </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if certifications </BLOCK>
+\medskip
+\begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{ZERTIFIZIERUNGEN} \\
+    \toprule[1pt]
+
+    <BLOCK> for cert in certifications </BLOCK>
+        <BLOCK> if not loop.first </BLOCK>
+
+        \\\\
+        \toprule[0.5pt]
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if cert.name </BLOCK>
+        \textbf{<VAR> cert.name </VAR>}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if cert.time </BLOCK>
+        <BLOCK> if cert.time.from and cert.time.till </BLOCK>
+        \hfill \textbf{<VAR> cert.time.from </VAR> – <VAR> cert.time.till </VAR>}
+        <BLOCK> else </BLOCK>
+        \hfill \textbf{<VAR> cert.time.from|default('', true) </VAR><VAR> cert.time.till|default('', true) </VAR>}
+        <BLOCK> endif </BLOCK>
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if cert.affiliation or cert.platform </BLOCK>
+        \\
+        <BLOCK> if cert.affiliation </BLOCK>
+        <VAR> cert.affiliation </VAR> 
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if cert.platform </BLOCK>
+        \textit{(<VAR> cert.platform </VAR>)} 
+        <BLOCK> endif </BLOCK>
+        <BLOCK> endif </BLOCK>
+        <BLOCK> if cert.content </BLOCK>
+        \\
+        \textbf{Inhalt}: 
+        <VAR> cert.content | join(', ') </VAR>
+        <BLOCK> endif </BLOCK>
+    <BLOCK> endfor </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+\end{paracol}
+\end{document}

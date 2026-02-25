@@ -12,26 +12,24 @@
 % \usepackage{helvet}                             % helvetica font
 % \usepackage{tgbonum}
 \usepackage{array, multirow}
-\newlength{\margin}
-\setlength{\margin}{<VAR> meta.margin|default('1cm', true) </VAR>}
-% \setlength{\margin}{0.02\paperwidth}
-% \setlength{\margin}{1cm}
-\usepackage[a4paper,margin=\margin]{geometry}
-% \usepackage[a4paper,margin=1cm]{geometry}               % set margin
-% \usepackage[skip=20pt, indent=40pt]{parskip}    % paragraph config: indent, skip
+\newlength{\hmargin}
+\setlength{\hmargin}{<VAR> meta.hmargin|default('0.5cm', true) </VAR>}
+\newlength{\vmargin}
+\setlength{\vmargin}{<VAR> meta.vmargin|default('1cm', true) </VAR>}
+\usepackage[a4paper,
+    hmargin=\hmargin,
+    vmargin=\vmargin,
+]{geometry}
 \usepackage{parskip}                            % remove indentation at the start of the para
 \usepackage{lipsum}                             % get 'Lorem ipsum'
 % \usepackage{graphicx}                           % required for inserting images
 % \graphicspath{{./images/}}                      % images directory
-% \usepackage[table]{xcolor}                      % color package for tables
 \usepackage{booktabs}                           % horizontal line thickness
 \usepackage[english,ngerman]{babel}             % hyphenation and language adaptation
 \usepackage[dvipsnames]{xcolor}                 % additional colors for url
 \usepackage{microtype}                          % improves typesetting quality and eliminates underfull box warnings
 \usepackage{tabularx}
-% \usepackage{tabularx, tabulary, tabu, longtable} % extra packages for table
 \usepackage{enumitem}                           % adjust parameters for enum items
-% \usepackage{caption}                              % remove space between tables (don't know how it works exactly)
 
 % hyperlinks preamble
 \usepackage{hyperref}                           % hyperlinks package
@@ -65,34 +63,17 @@
 % ]
 % \DeclareMicrotypeAlias{Figtree}{TU-basic}       % Fix unknown slot number warning: makes the font use basic one defined in microtype
 
-% margin preamble
-% \setlength{\hoffset}{-1in}                      % -1 inch from the default
-% \setlength{\voffset}{-1in}
-% \setlength{\marginparwidth}{1.5in}
-% \setlength{\oddsidemargin}{0in}
-
 % table preamble
 \setlist[itemize]{                              % define global itemize parameters
-    leftmargin=14pt,
+    leftmargin=1em,
     itemsep=0pt,
     parsep=0pt,
     topsep=0pt,
     partopsep=0pt,
 }
+
 \setlength{\tabcolsep}{0pt}                     % space between the text and the left/right border
 \setlength{\intextsep}{4pt}                     % set the space between tables
-% \renewcommand{\arraystretch}{1.5}               % cell height scaling
-% \setlength{\arrayrulewidth}{1pt}                % table border thickness
-% \arrayrulecolor{blue}                           % table border color
-% \newcolumntype{s}{>{\columncolor{blue!20}} c}   % define new column type
-
-% \title{cv latex}
-% \author{DonJoe}
-% \date{Jan 2026}
-
-% define variables
-% \newcommand{\applicationdate}{01.01.2026}       % application date
-% \newcommand{\applicationplace}{LosSantos}       % application place
 
 \begin{document}
 
@@ -100,7 +81,7 @@
 \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X}
 
     <BLOCK> if contact.name </BLOCK>
-    \fontsize{<VAR> meta.titlesize|default('48pt', true) </VAR>}{0}
+    \fontsize{<VAR> meta.titlesize|default('42pt', true) </VAR>}{0}
     \selectfont <VAR> contact.name </VAR> \\
     <BLOCK> endif </BLOCK>
 
@@ -108,7 +89,7 @@
     \href{mailto:<VAR> contact.email </VAR>}{<VAR> contact.email </VAR>} \hfill
     <BLOCK> endif </BLOCK>
     <BLOCK> if contact.linkedin </BLOCK>
-    \href{<VAR> contact.linkedin </VAR>}{<VAR> contact.linkedin </VAR>} \hfill
+    \href{https://www.<VAR> contact.linkedin </VAR>}{<VAR> contact.linkedin </VAR>} \hfill
     <BLOCK> endif </BLOCK>
     <BLOCK> if contact.phone </BLOCK>
     \href{tel:<VAR> contact.phone </VAR>}{<VAR> contact.phone </VAR>} \hfill
@@ -120,13 +101,13 @@
 \end{tabularx}
 <BLOCK> endif </BLOCK>
 
-<BLOCK> if work_experience </BLOCK>
+<BLOCK> if workexperience </BLOCK>
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
 
     \large\textbf{WORK EXPERIENCE} \\
     \toprule[1pt]
 
-    <BLOCK> for work in work_experience </BLOCK>
+    <BLOCK> for work in workexperience </BLOCK>
         <BLOCK> if not loop.first </BLOCK>
 
         \toprule[0.5pt]
@@ -187,8 +168,13 @@
         \hfill \textbf{<VAR> study.time.from|default('', true) </VAR><VAR> study.time.till|default('', true) </VAR>}
         <BLOCK> endif </BLOCK>
         <BLOCK> endif </BLOCK>
+        <BLOCK> if study.focus </BLOCK>
         \\
+        \textbf{Schwerpunkt}: 
+        <VAR> study.focus | join(', ') </VAR>
+        <BLOCK> endif </BLOCK>
         <BLOCK> if study.thesis </BLOCK>
+        \\
         <BLOCK> if study.thesis.title </BLOCK>
         \textbf{Thesis: <VAR> study.thesis.title </VAR>}, 
         <BLOCK> endif </BLOCK>

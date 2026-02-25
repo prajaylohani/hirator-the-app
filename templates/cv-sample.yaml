@@ -1,18 +1,29 @@
 meta:
-  margin: 0.02\paperwidth
+  hmargin: 0.02\paperwidth
+  vmargin: 2.5\hmargin
   fontstyle: TeX Gyre Heros
   fontsize: 10pt
   titlesize: 42pt
   sidebarcolor: SkyBlue
+  columnratio: 0.22
 
 contact:
   name: firstname lastname
+  position: position
   email: id@domain.com
-  linkedin: https://linkedin.com/id
+  linkedin: linkedin.com/in/username
   phone: +12 3456789
   address: str. 12, 34567 city
+  dateofbirth: 31.12.1984
 
-work_experience:
+profile:
+  paragraph: paragraph
+  list:
+    - this
+    - that
+    - and that
+
+workexperience:
   - position: position
     company: company
     location: city, country
@@ -31,8 +42,12 @@ education:
     time:
       from: then
       till: now
+    focus:
+      - this
+      - that
+      - and that
     thesis:
-      title: thesis title
+      title: "thesis: title"
       institute: institute
       location: country
       description:
@@ -50,6 +65,18 @@ certifications:
       - this
       - that
       - and that
+
+skills:
+  - category: category
+    list:
+      - this
+      - that
+      - and that
+
+softskills:
+  - this
+  - that
+  - and that
 
 hobbies:
   - this

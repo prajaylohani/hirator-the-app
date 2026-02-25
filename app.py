@@ -14,15 +14,17 @@ from flask import (
 )
 
 
-ALLOWED_EXTENSIONS = {"yaml", "yml", "tex"}
-TEX_TEMPLATE = "cv-jinja.tex"
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
+# TODO: implement template selection
+# TEX_TEMPLATE = "cv-jinja.tex"
+TEX_TEMPLATE = "cv-image-de.tex"
 SAMPLE_YAML = "cv-sample.yaml"
 DEFAULT_FILENAME = "document"
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = os.path.join(app.instance_path, "uploads")
 app.config["EXPORT_FOLDER"] = os.path.join(app.instance_path, "exports")
-app.config["MAX_CONTENT_LENGTH"] = 0.1 * 1000 * 1000  # max file size : 0.1mb
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1000 * 1000  # max file size : 5mb
 app.config["FILENAME"] = DEFAULT_FILENAME
 
 app.jinja_options = {
@@ -42,6 +44,10 @@ os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 os.makedirs(app.config["EXPORT_FOLDER"], exist_ok=True)
 
 
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 def escape_yaml_amp_percent(data):
     if isinstance(data, str):
         return data.replace("&", r"\&").replace("%", r"\%")
@@ -53,11 +59,38 @@ def escape_yaml_amp_percent(data):
         return data
 
 
+def tex2pdf(tex_path):
+    subprocess.run(
+        [
+            "latexmk",
+            "-xelatex",
+            "-interaction=nonstopmode",
+            "-halt-on-error",
+            "-outdir=" + app.config["EXPORT_FOLDER"],
+            tex_path,
+        ],
+        text=True,
+        timeout=60,
+    )
+
+
 # TODO: check temp directory + buffer io + exception handling: refer perplexity solution
 @app.route("/", methods=["GET", "POST"])
 def upload_text():
     if request.method == "POST":
-        # TODO: handle when action not found or sth
+        # get image
+        image = request.files.get("image")
+
+        if image and image.filename != "":
+            if not allowed_file(image.filename):
+                return "Invalid file type. Please upload a valid image."
+
+            imagename = secure_filename(image.filename)
+            image_path = os.path.join(app.config["EXPORT_FOLDER"], imagename)
+            image.save(image_path)
+        else:
+            imagename = None
+
         action = request.form.get("action")
 
         # get filename
@@ -78,17 +111,7 @@ def upload_text():
             with open(tex_path, "w", encoding="utf-8") as f:
                 f.write(raw_data)
 
-            subprocess.run(
-                [
-                    "xelatex",
-                    "-interaction=nonstopmode",
-                    "-halt-on-error",
-                    "-output-directory=" + app.config["EXPORT_FOLDER"],
-                    tex_path,
-                ],
-                text=True,
-                timeout=60,
-            )
+            tex2pdf(tex_path)
             return redirect(url_for("download_pdf"))
 
         # save yaml
@@ -101,6 +124,9 @@ def upload_text():
 
         # yaml to tex
         data = yaml.safe_load(raw_data)
+        if imagename:
+            data["meta"]["imagename"] = imagename
+
         escaped_data = escape_yaml_amp_percent(data)
         output = render_template(TEX_TEMPLATE, **escaped_data)
 
@@ -111,17 +137,7 @@ def upload_text():
         if action == "download_tex":
             return redirect(url_for("download_tex"))
 
-        subprocess.run(
-            [
-                "xelatex",
-                "-interaction=nonstopmode",
-                "-halt-on-error",
-                "-output-directory=" + app.config["EXPORT_FOLDER"],
-                tex_path,
-            ],
-            text=True,
-            timeout=60,
-        )
+        tex2pdf(tex_path)
 
         if action == "download_pdf":
             return redirect(url_for("download_pdf"))
@@ -129,7 +145,6 @@ def upload_text():
     return render_template("index.html")
 
 
-# TODO: change to fill with sample or sth: maybe in html/js?
 @app.route("/downloads/sample")
 def download_sample():
     return send_from_directory(app.template_folder, SAMPLE_YAML)
@@ -159,6 +174,16 @@ def download_pdf():
     return send_from_directory(
         app.config["EXPORT_FOLDER"],
         app.config["FILENAME"] + ".pdf",
+        as_attachment=False,
+    )
+
+
+@app.route("/downloads/log")
+def download_log():
+    return send_from_directory(
+        app.config["EXPORT_FOLDER"],
+        app.config["FILENAME"] + ".log",
+        mimetype="text/plain",
         as_attachment=False,
     )
 
