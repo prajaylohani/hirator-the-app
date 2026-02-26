@@ -1,6 +1,6 @@
 meta:
   language: ngerman
-  template: cv-image-de
+  template: cv-image
   hmargin: 0.02\paperwidth
   vmargin: 2.5\hmargin
   fontstyle: TeX Gyre Heros
