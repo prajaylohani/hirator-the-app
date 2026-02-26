@@ -93,7 +93,7 @@
   - [x] handle locale with the same template? too much?
   - [x] update the jinja filenames again
 - [ ] draw excalidraw architecture in md here
-- [ ] move soft skills inside skills? as a category?
+- [x] move soft skills inside skills? as a category?: nah leave it, this adds the possibility to keep it in the next page, its anyway possible to do so in skills category
 
 ## the commands:
 - docker build: `docker build . -t hirator`
