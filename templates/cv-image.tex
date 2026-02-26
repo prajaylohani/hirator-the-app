@@ -18,6 +18,7 @@
 \graphicspath{{./}}                             % images directory
 \usepackage{booktabs}                           % horizontal line thickness
 \usepackage[english,ngerman]{babel}             % hyphenation and language adaptation
+\usepackage{iflang}                             % conditionally switch language
 \usepackage[svgnames]{xcolor}                   % additional colors for url
 \usepackage{microtype}                          % improves typesetting quality and eliminates underfull box warnings
 \usepackage{tabularx}
@@ -87,6 +88,7 @@
 \AddEverypageHook{\sidebarcolor}
 
 \begin{document}
+\selectlanguage{<VAR> meta.language|default('english', true) </VAR>} % Switch to ngerman here for the other version
 
 %%%%%% PAGE 1 %%%%%%
 \begin{paracol}{2}
@@ -99,7 +101,7 @@
 \medskip
 \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{KONTAKT} \\
+    \large\textbf{\IfLanguageName{ngerman}{KONTAKT}{CONTACT}} \\
     \toprule[1pt]
 
     <BLOCK> if contact.linkedin </BLOCK>
@@ -122,7 +124,7 @@
 \medskip
 \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{FÄHIGKEITEN} \\
+    \large\textbf{\IfLanguageName{ngerman}{FÄHIGKEITEN}{SKILLS}} \\
     \toprule[1pt]
 
     <BLOCK> for skill in skills </BLOCK>
@@ -151,7 +153,7 @@
 \medskip
 \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{SOFT SKILLS} \\
+    \large\textbf{\IfLanguageName{ngerman}{SOFT SKILLS}{SOFT SKILLS}} \\
     \toprule[1pt]
 
     <BLOCK> for softskill in softskills </BLOCK>
@@ -165,7 +167,7 @@
 \medskip
 \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{HOBBYS} \\
+    \large\textbf{\IfLanguageName{ngerman}{HOBBYS}{HOBBIES}} \\
     \toprule[1pt]
 
     <BLOCK> for hobby in hobbies </BLOCK>
@@ -190,7 +192,7 @@
 \medskip
 \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{PROFIL} \\
+    \large\textbf{\IfLanguageName{ngerman}{PROFIL}{PROFILE}} \\
     \toprule[1pt]
 
     <BLOCK> if profile.paragraph </BLOCK>
@@ -214,7 +216,7 @@
 \medskip
 \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{BERUFSERFAHRUNG} \\
+    \large\textbf{\IfLanguageName{ngerman}{BERUFSERFAHRUNG}{WORK EXPERIENCE}} \\
     \toprule[1pt]
 
     <BLOCK> for work in workexperience </BLOCK>
@@ -258,7 +260,7 @@
 \medskip
 \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{AUSBILDUNG} \\
+    \large\textbf{\IfLanguageName{ngerman}{AUSBILDUNG}{EDUCATION}} \\
     \toprule[1pt]
 
     <BLOCK> for study in education </BLOCK>
@@ -288,7 +290,7 @@
         <BLOCK> endif </BLOCK>
         <BLOCK> if study.focus </BLOCK>
         \\
-        \textbf{Schwerpunkt}: 
+        \textbf{\IfLanguageName{ngerman}{Schwerpunkt}{Focus}}: 
         <VAR> study.focus | join(', ') </VAR>
         <BLOCK> endif </BLOCK>
         <BLOCK> if study.thesis </BLOCK>
@@ -322,7 +324,7 @@
 \medskip
 \begin{tabularx}{\columnwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{ZERTIFIZIERUNGEN} \\
+    \large\textbf{\IfLanguageName{ngerman}{ZERTIFIZIERUNGEN}{CERTIFICATIONS}} \\
     \toprule[1pt]
 
     <BLOCK> for cert in certifications </BLOCK>
@@ -352,7 +354,7 @@
         <BLOCK> endif </BLOCK>
         <BLOCK> if cert.content </BLOCK>
         \\
-        \textbf{Inhalt}: 
+        \textbf{\IfLanguageName{ngerman}{Inhalt}{Content}}: 
         <VAR> cert.content | join(', ') </VAR>
         <BLOCK> endif </BLOCK>
     <BLOCK> endfor </BLOCK>

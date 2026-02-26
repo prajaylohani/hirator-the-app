@@ -15,9 +15,10 @@ from flask import (
 
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
-DEFAULT_TEX_TEMPLATE = "cv-compact-en"
+DEFAULT_TEX_TEMPLATE = "cv-compact"
 SAMPLE_YAML = "cv-sample.yaml"
 DEFAULT_FILENAME = "document"
+
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = os.path.join(app.instance_path, "uploads")

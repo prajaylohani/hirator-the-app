@@ -89,9 +89,11 @@
 - [x] clear slurs before push
 - [x] add urls for log: no redirects
 - [x] set max text limit: set at 5000, more than double my current doc with comments
-- [ ] when templates good enough, make de/en of the other versions:
-  - [ ] handle locale with the same template? too much?
+- [x] when templates good enough, make de/en of the other versions:
+  - [x] handle locale with the same template? too much?
+  - [x] update the jinja filenames again
 - [ ] draw excalidraw architecture in md here
+- [ ] move soft skills inside skills? as a category?
 
 ## the commands:
 - docker build: `docker build . -t hirator`

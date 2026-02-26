@@ -5,12 +5,6 @@
 % \documentclass[10pt]{article}
 <BLOCK> set meta = meta|default({}) </BLOCK>
 \documentclass[<VAR> meta.fontsize|default('10pt', true) </VAR>]{extarticle}                % switched from article to extarticle to avoid extsizes package import
-% \documentclass[10pt]{extarticle}                % switched from article to extarticle to avoid extsizes package import
-% \usepackage{extsizes}                           % use font size less than 10pt
-% \usepackage[utf8]{inputenc}                     % uses utf8 encoding, but its already default in latex now
-% \usepackage[T1]{fontenc}
-% \usepackage{helvet}                             % helvetica font
-% \usepackage{tgbonum}
 \usepackage{array, multirow}
 \newlength{\hmargin}
 \setlength{\hmargin}{<VAR> meta.hmargin|default('0.5cm', true) </VAR>}
@@ -26,6 +20,7 @@
 % \graphicspath{{./images/}}                      % images directory
 \usepackage{booktabs}                           % horizontal line thickness
 \usepackage[english,ngerman]{babel}             % hyphenation and language adaptation
+\usepackage{iflang}                             % conditionally switch language
 \usepackage[dvipsnames]{xcolor}                 % additional colors for url
 \usepackage{microtype}                          % improves typesetting quality and eliminates underfull box warnings
 \usepackage{tabularx}
@@ -76,6 +71,7 @@
 \setlength{\intextsep}{4pt}                     % set the space between tables
 
 \begin{document}
+\selectlanguage{<VAR> meta.language|default('english', true) </VAR>} % Switch to ngerman here for the other version
 
 <BLOCK> if contact </BLOCK>
 \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X}
@@ -104,7 +100,7 @@
 <BLOCK> if workexperience </BLOCK>
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{WORK EXPERIENCE} \\
+    \large\textbf{\IfLanguageName{ngerman}{BERUFSERFAHRUNG}{WORK EXPERIENCE}} \\
     \toprule[1pt]
 
     <BLOCK> for work in workexperience </BLOCK>
@@ -144,7 +140,7 @@
 <BLOCK> if education </BLOCK>
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{EDUCATION} \\
+    \large\textbf{\IfLanguageName{ngerman}{AUSBILDUNG}{EDUCATION}} \\
     \toprule[1pt]
 
     <BLOCK> for study in education </BLOCK>
@@ -170,13 +166,13 @@
         <BLOCK> endif </BLOCK>
         <BLOCK> if study.focus </BLOCK>
         \\
-        \textbf{Schwerpunkt}: 
+        \textbf{\IfLanguageName{ngerman}{Schwerpunkt}{Focus}}: 
         <VAR> study.focus | join(', ') </VAR>
         <BLOCK> endif </BLOCK>
         <BLOCK> if study.thesis </BLOCK>
         \\
         <BLOCK> if study.thesis.title </BLOCK>
-        \textbf{Thesis: <VAR> study.thesis.title </VAR>}, 
+        \textbf{<VAR> study.thesis.title </VAR>}, 
         <BLOCK> endif </BLOCK>
         <BLOCK> if study.thesis.institute </BLOCK>
         <VAR> study.thesis.institute </VAR> 
@@ -201,7 +197,7 @@
 <BLOCK> if skills </BLOCK>
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{SKILLS} \\
+    \large\textbf{\IfLanguageName{ngerman}{FÄHIGKEITEN}{SKILLS}} \\
     \toprule[1pt]
     <BLOCK> for skill in skills </BLOCK>
 
@@ -218,7 +214,7 @@
 <BLOCK> if certifications </BLOCK>
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{CERTIFICATIONS} \\
+    \large\textbf{\IfLanguageName{ngerman}{ZERTIFIZIERUNGEN}{CERTIFICATIONS}} \\
     \toprule[1pt]
 
     <BLOCK> for cert in certifications </BLOCK>
@@ -244,7 +240,7 @@
         <BLOCK> endif </BLOCK>
         <BLOCK> if cert.content </BLOCK>
         \\
-        \textbf{Content}: 
+        \textbf{\IfLanguageName{ngerman}{Inhalt}{Content}}: 
         <VAR> cert.content | join(', ') </VAR>
         <BLOCK> endif </BLOCK>
         \\
@@ -256,7 +252,7 @@
 <BLOCK> if hobbies </BLOCK>
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
 
-    \large\textbf{HOBBIES} \\
+    \large\textbf{\IfLanguageName{ngerman}{HOBBYS}{HOBBIES}} \\
     \toprule[1pt]
 
         <VAR> hobbies | join(', ') </VAR> \\
