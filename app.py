@@ -15,16 +15,14 @@ from flask import (
 
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
-# TODO: implement template selection
-# TEX_TEMPLATE = "cv-jinja.tex"
-TEX_TEMPLATE = "cv-image-de.tex"
+DEFAULT_TEX_TEMPLATE = "cv-compact-en"
 SAMPLE_YAML = "cv-sample.yaml"
 DEFAULT_FILENAME = "document"
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = os.path.join(app.instance_path, "uploads")
 app.config["EXPORT_FOLDER"] = os.path.join(app.instance_path, "exports")
-app.config["MAX_CONTENT_LENGTH"] = 5 * 1000 * 1000  # max file size : 5mb
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1000 * 1000  # 5mb
 app.config["FILENAME"] = DEFAULT_FILENAME
 
 app.jinja_options = {
@@ -63,6 +61,7 @@ def tex2pdf(tex_path):
     subprocess.run(
         [
             "latexmk",
+            "-gg",
             "-xelatex",
             "-interaction=nonstopmode",
             "-halt-on-error",
@@ -124,11 +123,19 @@ def upload_text():
 
         # yaml to tex
         data = yaml.safe_load(raw_data)
+
+        # set imagename if available
         if imagename:
             data["meta"]["imagename"] = imagename
 
+        # get template if available
+        if "meta" in data and "template" in data["meta"]:
+            tex_template = data["meta"]["template"] + ".tex"
+        else:
+            tex_template = DEFAULT_TEX_TEMPLATE + ".tex"
+
         escaped_data = escape_yaml_amp_percent(data)
-        output = render_template(TEX_TEMPLATE, **escaped_data)
+        output = render_template(tex_template, **escaped_data)
 
         # save tex
         with open(tex_path, "w", encoding="utf-8") as f:

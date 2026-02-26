@@ -73,7 +73,7 @@
 - [x] sth wrong with the margin change logic in tex, check sidebar too
 - [x] clean cv-image-jinja before pushing
 - [x] create german templates: the current cv-image template is german so far
-- [ ] add option to select cv template: in yaml? try reading from safe_load output
+- [x] add option to select cv template: in yaml? try reading from safe_load output
 - [x] can \newpage be injected from yaml?: too complicated, use tex mode
 - [x] add profile section with support for both para and bullets
 - [x] fix \\\\ and vspace drama:
@@ -88,24 +88,15 @@
   - [ ] prolly need to use temp directory to avoid overwriting in the exports and uploads directory
 - [x] clear slurs before push
 - [x] add urls for log: no redirects
-- [ ] set max text limit
+- [x] set max text limit: set at 5000, more than double my current doc with comments
+- [ ] when templates good enough, make de/en of the other versions:
+  - [ ] handle locale with the same template? too much?
+- [ ] draw excalidraw architecture in md here
 
 ## the commands:
 - docker build: `docker build . -t hirator`
 - docker run: `docker run --name hirator --rm -p 5100:5100 hirator:latest`
 - docker debug: `docker exec -it hirator /bin/bash`
-
-## container:
-- copy: tex templates, fonts, flask app (python codes)
-- run: install dependencies from requirements.txt - flask (use pyproject.toml?)
-- cmd: flask app
-
-## python:
-- run flask app
-- take inputs (start with fixed inputs then dynamic?)
-- fill tex template with inputs
-- run xelatex to compile pdf
-- upload pdf to webapp
 
 - [ ] update this, or remove from here?
 ## db scheme for table types in cv (* optional):

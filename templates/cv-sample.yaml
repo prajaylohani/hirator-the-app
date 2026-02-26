@@ -1,4 +1,5 @@
 meta:
+  template: cv-image-de
   hmargin: 0.02\paperwidth
   vmargin: 2.5\hmargin
   fontstyle: TeX Gyre Heros
