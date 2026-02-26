@@ -27,13 +27,13 @@
     - [x] give sample yaml as download link
 - [x] update dotfiles with streamlink and mpv conf: no mpvc needed, no mpv conf just reload script might not be needed
 - [x] stage i flask design: completeeasily !
-- [ ] add meaningful exceptions/error messages:
-    - [ ] failed pdf compilation: show latex compilation warnings / logs?
+- [x] add meaningful exceptions/error messages:
+    - [x] failed pdf compilation: show latex compilation warnings / logs?: log available from url /log
     - [x] missing required values: handled by html
-    - [ ] uploading wrong file format
+    - [x] uploading wrong file format: handled by js
     - [x] everything breaks when file not uploaded (if just photo uploaded for example): upload not a required field
-    - [ ] refreshing doesn't reset a broken app: make app start a new instance on refresh, handle running / broken instances
-    - [ ] refreshing doesn't the app, it continues from the last buffer: maybe temp dir fixes this? app instance thing again might fix
+    - [x] refreshing doesn't reset a broken app: make app start a new instance on refresh, handle running / broken instances: fixed with latexmk -gg
+    - [x] refreshing doesn't the app, it continues from the last buffer: maybe temp dir fixes this? app instance thing again might fix: fixed with latexmk -gg
 - [x] auto-upload without pressing upload button and drag-drop feature: no, bc sometimes photo
 - [x] contact part of the cv is scuffed bc need hfill and | between entries idk how to do this elegantly wo escaping string join fuckery removed the line (|) for now as temp fix
 - [ ] check temp directory
