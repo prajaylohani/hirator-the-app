@@ -1,4 +1,7 @@
-# UPNEXT:
+# UPNEXT
+- app.run -> flask run: update dockerfile
+- wsgi: gunicorn
+- nginx
 
 # do this, do that, king in the castle, king in the castle
 - [x] docker runs everything in a container at the top level
@@ -36,7 +39,7 @@
     - [x] refreshing doesn't the app, it continues from the last buffer: maybe temp dir fixes this? app instance thing again might fix: fixed with latexmk -gg
 - [x] auto-upload without pressing upload button and drag-drop feature: no, bc sometimes photo
 - [x] contact part of the cv is scuffed bc need hfill and | between entries idk how to do this elegantly wo escaping string join fuckery removed the line (|) for now as temp fix
-- [ ] check temp directory
+- [x] check temp directory
 - [x] why is the python syntax highlighting better on mac's nvim than linux's nvim? bc treesitter a bitch! branch: master branch shit
 - [x] option to edit yaml/tex files online
 - [x] add light/dark mode in html
@@ -69,6 +72,7 @@
   - [x] can be done easily with prism, but the implementation is so ass i'm not doing it!
 - [x] spacing between buttons
 - [ ] add references / hints
+- [ ] add readme: move things from here
 - [x] update margin to hmargin and vmargin, add option for columnratio too,  in yaml and tex jinja
 - [x] sth wrong with the margin change logic in tex, check sidebar too
 - [x] clean cv-image-jinja before pushing
@@ -84,24 +88,39 @@
 - [x] why are there so many tabularx? tables arent even used now, or are they? remove if possible: nah hes carrying the formatting heavy!
 - [x] why does sidebar compiles correctly on second compile: using latexmk to handle multiple compiles automatically
 - [ ] what happens if 2 or more people try to use the app?
-  - [ ] can the site handle multiple app instances
-  - [ ] prolly need to use temp directory to avoid overwriting in the exports and uploads directory
+  - [x] can the site handle multiple app instances: multithreads for dev, wsgi for prod
+  - [x] avoid file sharing, delete after exec: use tempfile
+  - [x] prolly need to use temp directory to avoid overwriting in the exports and uploads directory
+  - [x] check threads in app.run() for dev: security and performance issues on high traffic, so not for prod
+  - [ ] check wsgi for prod: gunicorn (clanker's fav), uwsgi, waitress?: gunicorn better overall, uwsgi is in maintenance mode, for high peformance, waitress for windows (eww)
+  - [ ] app.run() vs flask run: use flask run its modern, app.run() is hardcoded in code for dev: use neither for prod, go for wsgi!
+  - [x] check uuid? maybe useful for keeps data, not needed
+  - [x] check sessions: nah fuck cookies! its useful for keeping user logged in for a session, also fuck logins!
+  - [x] check celery / redis: useful as a task queue management for long / slow operation, so maybe not here
+  - [x] fastAPI for async?: no, its good for high performance api specific usecases, not for html rendering: experiment later
+  - [ ] nginx: for safe internet expose: reverse proxy + ssl + handle slow clients and static files
+  - [ ] remove debug / dev mode things before public
+  - [ ] user -> nginx -> gunicorn -> flask
+  - [ ] update commands below then
+  - [ ] update dockerfile for imports
 - [x] clear slurs before push
-- [x] add urls for log: no redirects
-- [x] set max text limit: set at 5000, more than double my current doc with comments
+- [x] add urls for log: added then remove due to request bound tempfile: add a line to copy log before deletion
+- [x] set max text limit: set at 50000, more than double my current doc with comments
 - [x] when templates good enough, make de/en of the other versions:
   - [x] handle locale with the same template? too much?
   - [x] update the jinja filenames again
-- [ ] draw excalidraw architecture in md here
+- [ ] draw excalidraw architecture in md here: mermaid
 - [x] move soft skills inside skills? as a category?: nah leave it, this adds the possibility to keep it in the next page, its anyway possible to do so in skills category
+- [ ] use flash to show warnings/messages
 
 ## the commands:
 - docker build: `docker build . -t hirator`
 - docker run: `docker run --name hirator --rm -p 5100:5100 hirator:latest`
 - docker debug: `docker exec -it hirator /bin/bash`
 
-- [ ] update this, or remove from here?
-## db scheme for table types in cv (* optional):
+- [ ] update this, or remove from here? can i link the cv-sample content here?
+## sample input (* optional):
+full file at [cv-sample.yaml](./templates/cv-sample.yaml)
 
 ```yaml
 meta:

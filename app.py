@@ -1,6 +1,7 @@
 import os
 import subprocess
 import yaml
+import tempfile
 from werkzeug.utils import secure_filename
 from flask import (
     Flask,
@@ -11,6 +12,7 @@ from flask import (
     render_template,
     send_file,
     send_from_directory,
+    g,
 )
 
 
@@ -21,10 +23,7 @@ DEFAULT_FILENAME = "document"
 
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = os.path.join(app.instance_path, "uploads")
-app.config["EXPORT_FOLDER"] = os.path.join(app.instance_path, "exports")
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1000 * 1000  # 5mb
-app.config["FILENAME"] = DEFAULT_FILENAME
 
 app.jinja_options = {
     "block_start_string": "<BLOCK>",
@@ -37,10 +36,6 @@ app.jinja_options = {
     "lstrip_blocks": True,
     "autoescape": False,
 }
-
-
-os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
-os.makedirs(app.config["EXPORT_FOLDER"], exist_ok=True)
 
 
 def allowed_file(filename):
@@ -58,7 +53,7 @@ def escape_yaml_amp_percent(data):
         return data
 
 
-def tex2pdf(tex_path):
+def tex2pdf(dir, texpath):
     subprocess.run(
         [
             "latexmk",
@@ -66,89 +61,117 @@ def tex2pdf(tex_path):
             "-xelatex",
             "-interaction=nonstopmode",
             "-halt-on-error",
-            "-outdir=" + app.config["EXPORT_FOLDER"],
-            tex_path,
+            "-outdir=" + dir,
+            texpath,
         ],
         text=True,
         timeout=60,
     )
 
 
-# TODO: check temp directory + buffer io + exception handling: refer perplexity solution
+def download_yaml(dir, filename):
+    return send_from_directory(
+        dir,
+        filename + ".yaml",
+        mimetype="text/plain",
+        as_attachment=False,
+    )
+
+
+def download_tex(dir, filename):
+    return send_from_directory(
+        dir,
+        filename + ".tex",
+        as_attachment=False,
+    )
+
+
+def download_pdf(dir, filename):
+    return send_from_directory(
+        dir,
+        filename + ".pdf",
+        as_attachment=False,
+    )
+
+
 @app.route("/", methods=["GET", "POST"])
 def upload_text():
     if request.method == "POST":
-        # get image
-        image = request.files.get("image")
+        with tempfile.TemporaryDirectory() as tmpdir:
+            # get image
+            image = request.files.get("image")
 
-        if image and image.filename != "":
-            if not allowed_file(image.filename):
-                return "Invalid file type. Please upload a valid image."
+            if image and image.filename != "":
+                if not allowed_file(image.filename):
+                    return "Invalid file type. Please upload a valid image."
 
-            imagename = secure_filename(image.filename)
-            image_path = os.path.join(app.config["EXPORT_FOLDER"], imagename)
-            image.save(image_path)
-        else:
-            imagename = None
+                imagename = secure_filename(image.filename)
+                imagepath = os.path.join(tmpdir, imagename)
+                image.save(imagepath)
+            else:
+                imagename = None
 
-        action = request.form.get("action")
+            action = request.form.get("action")
 
-        # get filename
-        filename = request.form.get("filename", DEFAULT_FILENAME).strip()
-        if not filename:
-            filename = DEFAULT_FILENAME
-        app.config["FILENAME"] = filename
+            # get filename
+            filename = request.form.get("filename", DEFAULT_FILENAME).strip()
+            if not filename:
+                filename = DEFAULT_FILENAME
 
-        # set filepath
-        yaml_path = os.path.join(app.config["EXPORT_FOLDER"], filename + ".yaml")
-        tex_path = os.path.join(app.config["EXPORT_FOLDER"], filename + ".tex")
+            # set filepath
+            yamlpath = os.path.join(tmpdir, filename + ".yaml")
+            texpath = os.path.join(tmpdir, filename + ".tex")
 
-        # read raw data
-        raw_data = request.form.get("preview", "")
+            # read raw data
+            rawdata = request.form.get("preview", "")
 
-        if action == "compile_tex":
+            # compile tex
+            if action == "compile_tex":
+                # save tex
+                with open(texpath, "w", encoding="utf-8") as f:
+                    f.write(rawdata)
+
+                tex2pdf(tmpdir, texpath)
+
+                return download_pdf(tmpdir, filename)
+
+            # save yaml
+            with open(yamlpath, "w", encoding="utf-8") as f:
+                f.write(rawdata)
+
+            # download yaml
+            if action == "download_yaml":
+                return download_yaml(tmpdir, filename)
+
+            # yaml to tex
+            data = yaml.safe_load(rawdata)
+
+            # set imagename if available
+            if imagename:
+                data["meta"]["imagename"] = imagename
+
+            # get template if available
+            if "meta" in data and "template" in data["meta"]:
+                tex_template = data["meta"]["template"] + ".tex"
+            else:
+                tex_template = DEFAULT_TEX_TEMPLATE + ".tex"
+
+            escapeddata = escape_yaml_amp_percent(data)
+            output = render_template(tex_template, **escapeddata)
+
             # save tex
-            with open(tex_path, "w", encoding="utf-8") as f:
-                f.write(raw_data)
+            with open(texpath, "w", encoding="utf-8") as f:
+                f.write(output)
 
-            tex2pdf(tex_path)
-            return redirect(url_for("download_pdf"))
+            # download tex
+            if action == "download_tex":
+                return download_tex(tmpdir, filename)
 
-        # save yaml
-        with open(yaml_path, "w", encoding="utf-8") as f:
-            f.write(raw_data)
+            tex2pdf(tmpdir, texpath)
 
-        ## download_yaml
-        if action == "download_yaml":
-            return redirect(url_for("download_yaml"))
-
-        # yaml to tex
-        data = yaml.safe_load(raw_data)
-
-        # set imagename if available
-        if imagename:
-            data["meta"]["imagename"] = imagename
-
-        # get template if available
-        if "meta" in data and "template" in data["meta"]:
-            tex_template = data["meta"]["template"] + ".tex"
-        else:
-            tex_template = DEFAULT_TEX_TEMPLATE + ".tex"
-
-        escaped_data = escape_yaml_amp_percent(data)
-        output = render_template(tex_template, **escaped_data)
-
-        # save tex
-        with open(tex_path, "w", encoding="utf-8") as f:
-            f.write(output)
-
-        if action == "download_tex":
-            return redirect(url_for("download_tex"))
-
-        tex2pdf(tex_path)
-
-        if action == "download_pdf":
-            return redirect(url_for("download_pdf"))
+            # download pdf
+            if action == "download_pdf":
+                return download_pdf(tmpdir, filename)
 
     return render_template("index.html")
 
@@ -158,43 +181,5 @@ def download_sample():
     return send_from_directory(app.template_folder, SAMPLE_YAML)
 
 
-@app.route("/downloads/yaml")
-def download_yaml():
-    return send_from_directory(
-        app.config["EXPORT_FOLDER"],
-        app.config["FILENAME"] + ".yaml",
-        mimetype="text/plain",
-        as_attachment=False,
-    )
-
-
-@app.route("/downloads/tex")
-def download_tex():
-    return send_from_directory(
-        app.config["EXPORT_FOLDER"],
-        app.config["FILENAME"] + ".tex",
-        as_attachment=False,
-    )
-
-
-@app.route("/downloads/pdf")
-def download_pdf():
-    return send_from_directory(
-        app.config["EXPORT_FOLDER"],
-        app.config["FILENAME"] + ".pdf",
-        as_attachment=False,
-    )
-
-
-@app.route("/downloads/log")
-def download_log():
-    return send_from_directory(
-        app.config["EXPORT_FOLDER"],
-        app.config["FILENAME"] + ".log",
-        mimetype="text/plain",
-        as_attachment=False,
-    )
-
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, port=5100)
+    app.run(host="0.0.0.0", debug=True, threaded=True, port=5100)
