@@ -5,14 +5,9 @@ import tempfile
 from werkzeug.utils import secure_filename
 from flask import (
     Flask,
-    flash,
     request,
-    redirect,
-    url_for,
     render_template,
-    send_file,
     send_from_directory,
-    g,
 )
 
 
@@ -179,7 +174,3 @@ def upload_text():
 @app.route("/downloads/sample")
 def download_sample():
     return send_from_directory(app.template_folder, SAMPLE_YAML)
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True, threaded=True, port=5100)

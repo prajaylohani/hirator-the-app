@@ -1,5 +1,4 @@
 # UPNEXT
-- app.run -> flask run: update dockerfile
 - wsgi: gunicorn
 - nginx
 
@@ -93,13 +92,15 @@
   - [x] prolly need to use temp directory to avoid overwriting in the exports and uploads directory
   - [x] check threads in app.run() for dev: security and performance issues on high traffic, so not for prod
   - [ ] check wsgi for prod: gunicorn (clanker's fav), uwsgi, waitress?: gunicorn better overall, uwsgi is in maintenance mode, for high peformance, waitress for windows (eww)
-  - [ ] app.run() vs flask run: use flask run its modern, app.run() is hardcoded in code for dev: use neither for prod, go for wsgi!
+  - [x] app.run() vs flask run: use flask run its modern, app.run() is hardcoded in code for dev: use neither for prod, go for wsgi!
   - [x] check uuid? maybe useful for keeps data, not needed
   - [x] check sessions: nah fuck cookies! its useful for keeping user logged in for a session, also fuck logins!
   - [x] check celery / redis: useful as a task queue management for long / slow operation, so maybe not here
   - [x] fastAPI for async?: no, its good for high performance api specific usecases, not for html rendering: experiment later
   - [ ] nginx: for safe internet expose: reverse proxy + ssl + handle slow clients and static files
-  - [ ] remove debug / dev mode things before public
+  - [ ] remove debug / dev mode things before public:
+    - [x] remove from flask command
+    - [ ] remove from docker run
   - [ ] user -> nginx -> gunicorn -> flask
   - [ ] update commands below then
   - [ ] update dockerfile for imports
@@ -111,11 +112,11 @@
   - [x] update the jinja filenames again
 - [ ] draw excalidraw architecture in md here: mermaid
 - [x] move soft skills inside skills? as a category?: nah leave it, this adds the possibility to keep it in the next page, its anyway possible to do so in skills category
-- [ ] use flash to show warnings/messages
+- [x] use flash to show warnings/messages: no, needs secret_key and session and cookies: useful for cryptographic security for logins, sessions, etc.
 
 ## the commands:
 - docker build: `docker build . -t hirator`
-- docker run: `docker run --name hirator --rm -p 5100:5100 hirator:latest`
+- docker run: `docker run --name hirator --rm -p 5100:5100 -e FLASK_DEBUG=1 hirator:latest` (remove debug in prod)
 - docker debug: `docker exec -it hirator /bin/bash`
 
 - [ ] update this, or remove from here? can i link the cv-sample content here?

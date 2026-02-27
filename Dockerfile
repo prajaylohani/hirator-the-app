@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
 
 EXPOSE 5100
 
-CMD ["python3", "app.py"]
+CMD ["flask", "--app", "app.py", "run", "--host=0.0.0.0", "--port=5100"]
