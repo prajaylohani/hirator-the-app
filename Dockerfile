@@ -15,4 +15,5 @@ RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
 
 EXPOSE 5100
 
-CMD ["flask", "--app", "app.py", "run", "--host=0.0.0.0", "--port=5100"]
+# log-level: prod=info dev=debug
+CMD ["gunicorn", "--bind", "0.0.0.0:5100", "--workers", "4", "--log-level", "info", "--access-logfile", "-", "--error-logfile", "-", "app:app"]
