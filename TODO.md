@@ -1,5 +1,8 @@
 # UPNEXT
 - nginx
+  - try isolated nginx in docker
+  - create a compose to run hirator alone
+  - create a compose to connect hirator with nginx container
 
 # do this, do that, king in the castle, king in the castle
 - [x] docker runs everything in a container at the top level
@@ -7,7 +10,7 @@
 - [x] the jinja template thing for flask
 - [x] python (flask) compiles the latex and uploads the pdf as done in rembg
 - [x] no db, no local storage, clear all
-- [x] NO! or... store inputs to db, then access them from db to populate tex file? for what?
+- [x] store inputs to db, then access them from db to populate tex file? for what?: no
 - [x] no login data storage
 - [x] give option to download data (tex? db?) then uploading that file acts as sign in to fill in the data for editing, smart?
 - [x] how about json? it has nested structure
@@ -70,6 +73,7 @@
   - [x] can be done easily with prism, but the implementation is so ass i'm not doing it!
 - [x] spacing between buttons
 - [ ] add references / hints
+  - [ ] [list of available colours: section 4.3 (svgnames) and 4.4 (x11names)](https://ftp.rrzn.uni-hannover.de/pub/mirror/tex-archive/macros/latex/contrib/xcolor/xcolor.pdf)
 - [ ] add readme: move things from here
 - [x] update margin to hmargin and vmargin, add option for columnratio too,  in yaml and tex jinja
 - [x] sth wrong with the margin change logic in tex, check sidebar too
@@ -112,6 +116,17 @@
 - [ ] draw excalidraw architecture in md here: mermaid
 - [x] move soft skills inside skills? as a category?: nah leave it, this adds the possibility to keep it in the next page, its anyway possible to do so in skills category
 - [x] use flash to show warnings/messages: no, needs secret_key and session and cookies: useful for cryptographic security for logins, sessions, etc.
+- [x] add x11names in xcolor
+- [ ] ux improvements:
+  - [ ] make error message larger
+  - [ ] create a filled lorem sample?
+  - [ ] change placeholder text to sample?
+  - [ ] change download yaml to download source? care the ext, currently saves tex also as .yaml
+  - [ ] download tex online works with yaml input, change to compile tex? but there's already compile tex
+  - [ ] download pdf only works with yaml. what a mess!
+  - [ ] name like yaml2pdf, yaml2tex, tex2pdf? and separate tex options?
+  - [ ] add download source as tex and download source as yaml? or content aware with a single download source button?
+- [x] optimize dockerfile for better layer caching
 
 ## the commands:
 - docker build: `docker build . -t hirator`

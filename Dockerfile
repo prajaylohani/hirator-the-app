@@ -4,14 +4,17 @@ ENV TZ=Europe/Berlin
 
 WORKDIR /usr/src/app
 
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends python3-pip \
+	&& rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt .
+RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
+
+COPY app.py .
 COPY templates/ templates/
 COPY static/ static/
 COPY fonts/ fonts/
-COPY app.py .
-
-RUN apt-get update && apt-get install -y python3-pip
-RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
 
 EXPOSE 5100
 
