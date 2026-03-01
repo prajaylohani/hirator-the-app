@@ -45,7 +45,7 @@
 - [x] separate css
 - [x] there's no indication if the file is uploaded/selected
 - [ ] restructure the project, refer below
-  - [ ] fonts and images to static? update directories in tex, images not static so uploads? tf is images dir?
+  - [ ] fonts and images to static? update directories in tex, images not static so uploads? tf is images dir?: removed image
 - [x] flutter?: nah, too much overhead
 - [x] webpage scuffed on mobile:
   - [x] title's (in heading) fine, but body is left aligned and bleeding over the left edge
