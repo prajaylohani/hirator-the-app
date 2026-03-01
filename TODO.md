@@ -44,8 +44,8 @@
 - [x] add light/dark mode in html
 - [x] separate css
 - [x] there's no indication if the file is uploaded/selected
-- [ ] restructure the project, refer below
-  - [ ] fonts and images to static? update directories in tex, images not static so uploads? tf is images dir?: removed image
+- [x] restructure the project, refer below
+  - [x] fonts and images to static? update directories in tex, images not static so uploads? tf is images dir?: removed image
 - [x] flutter?: nah, too much overhead
 - [x] webpage scuffed on mobile:
   - [x] title's (in heading) fine, but body is left aligned and bleeding over the left edge
@@ -72,7 +72,8 @@
 - [x] spacing between buttons
 - [ ] add references / hints
   - [ ] [list of available colours: section 4.3 (svgnames) and 4.4 (x11names)](https://ftp.rrzn.uni-hannover.de/pub/mirror/tex-archive/macros/latex/contrib/xcolor/xcolor.pdf)
-- [ ] add readme: move things from here
+  - [ ] add readme: move things from here
+  - [ ] draw excalidraw architecture in md here: mermaid
 - [x] update margin to hmargin and vmargin, add option for columnratio too,  in yaml and tex jinja
 - [x] sth wrong with the margin change logic in tex, check sidebar too
 - [x] clean cv-image-jinja before pushing
@@ -111,7 +112,6 @@
 - [x] when templates good enough, make de/en of the other versions:
   - [x] handle locale with the same template? too much?
   - [x] update the jinja filenames again
-- [ ] draw excalidraw architecture in md here: mermaid
 - [x] move soft skills inside skills? as a category?: nah leave it, this adds the possibility to keep it in the next page, its anyway possible to do so in skills category
 - [x] use flash to show warnings/messages: no, needs secret_key and session and cookies: useful for cryptographic security for logins, sessions, etc.
 - [x] add x11names in xcolor
@@ -138,7 +138,7 @@
 
 - [ ] update this, or remove from here? can i link the cv-sample content here?
 ## sample input (* optional):
-full file at [cv-sample.yaml](./templates/cv-sample.yaml)
+full file at [cv-sample.yaml](./app/templates/cv-sample.yaml)
 
 ```yaml
 meta:
