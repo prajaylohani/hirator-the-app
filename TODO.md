@@ -115,15 +115,15 @@
 - [x] move soft skills inside skills? as a category?: nah leave it, this adds the possibility to keep it in the next page, its anyway possible to do so in skills category
 - [x] use flash to show warnings/messages: no, needs secret_key and session and cookies: useful for cryptographic security for logins, sessions, etc.
 - [x] add x11names in xcolor
-- [ ] ux improvements:
-  - [ ] make error message larger
-  - [ ] create a filled lorem sample?
-  - [ ] change placeholder text to sample?
-  - [ ] change download yaml to download source? care the ext, currently saves tex also as .yaml
-  - [ ] download tex online works with yaml input, change to compile tex? but there's already compile tex
-  - [ ] download pdf only works with yaml. what a mess!
-  - [ ] name like yaml2pdf, yaml2tex, tex2pdf? and separate tex options?
-  - [ ] add download source as tex and download source as yaml? or content aware with a single download source button?
+- [x] ux improvements:
+  - [x] make error message larger
+  - [x] create a filled lorem sample?: too confusing as it needs injecting commands from yaml, prob just a dummy filled yaml
+  - [x] change placeholder text to sample?: nah, too crowded
+  - [x] change download yaml to download source? care the ext, currently saves tex also as .yaml: avoiding context awareness
+  - [x] download tex online works with yaml input, change to compile tex? but there's already compile tex
+  - [x] download pdf only works with yaml. what a mess!: fixed!
+  - [x] name like yaml2pdf, yaml2tex, tex2pdf? and separate tex options?: no, not user friendly names
+  - [x] add download source as tex and download source as yaml? or content aware with a single download source button?: no context aware, added complexity
 - [x] optimize dockerfile for better layer caching
 - [ ] check if lighter alternative for texlive (>2gb):
   - [ ] texlive base/minimal image? might need to install some packages manually

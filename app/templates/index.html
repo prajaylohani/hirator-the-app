@@ -26,10 +26,13 @@
 		<input type="file" id="image" name="image" accept="image/*">
 
 		<button type="submit" name="action" value="download_pdf">Download PDF</button>
-		<button type="submit" name="action" value="download_yaml">Download YAML</button>
+		<button type="submit" name="action" value="download_yaml">Download source</button>
 
-		<button type="submit" name="action" value="download_tex">Download TEX</button>
-		<button type="submit" name="action" value="compile_tex">Compile TEX</button>
+		<hr>
+		<h2> Advanced TeX </h2>
+		<button type="submit" name="action" value="compile_tex">Download PDF</button>
+		<button type="submit" name="action" value="download_tex">Download source as TeX</button>
+		<button type="submit" name="action" value="yaml2tex">YAML to TeX</button>
 	</form>
 	<script src="<VAR> url_for('static', filename='js/script.js') </VAR>"></script>
 </body>

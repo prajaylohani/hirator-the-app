@@ -11,7 +11,7 @@ from flask import (
     send_from_directory,
 )
 
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
+ALLOWED_IMAGE_TYPES = {"jpg", "jpeg", "png"}
 DEFAULT_TEX_TEMPLATE = "cv-compact"
 SAMPLE_YAML = "cv-sample.yaml"
 DEFAULT_FILENAME = "document"
@@ -36,7 +36,7 @@ app.jinja_options = {
 
 
 def allowed_file(filename):
-    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_IMAGE_TYPES
 
 
 def escape_yaml_amp_percent(data):
@@ -79,6 +79,7 @@ def download_tex(dir, filename):
     return send_from_directory(
         dir,
         filename + ".tex",
+        mimetype="text/plain",
         as_attachment=False,
     )
 
@@ -100,7 +101,11 @@ def upload_text():
 
             if image and image.filename != "":
                 if not allowed_file(image.filename):
-                    return "Invalid file type. Please upload a valid image."
+                    return f"""
+                        <h1> Invalid file type </h1>
+                        <p> Please upload a valid image. <br>
+                         Accepted image types: {", ".join(ALLOWED_IMAGE_TYPES)} </p>
+                    """
 
                 imagename = secure_filename(image.filename)
                 imagepath = os.path.join(tmpdir, imagename)
@@ -121,6 +126,14 @@ def upload_text():
 
             # read raw data
             rawdata = request.form.get("preview", "")
+
+            # download tex
+            if action == "download_tex":
+                # save tex
+                with open(texpath, "w", encoding="utf-8") as f:
+                    f.write(rawdata)
+
+                return download_tex(tmpdir, filename)
 
             # compile tex
             if action == "compile_tex":
@@ -160,8 +173,8 @@ def upload_text():
             with open(texpath, "w", encoding="utf-8") as f:
                 f.write(output)
 
-            # download tex
-            if action == "download_tex":
+            # yaml2tex
+            if action == "yaml2tex":
                 return download_tex(tmpdir, filename)
 
             tex2pdf(tmpdir, texpath)
