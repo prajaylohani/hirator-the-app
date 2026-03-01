@@ -1,6 +1,6 @@
 services:
   flask:
-    build: .
+    build: ./app
     container_name: app
     expose:
       - 5100

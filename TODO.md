@@ -1,6 +1,5 @@
 # UPNEXT
 - nginx
-  - need to move flask and nginx in different folders in the root with specific dockerfile, then build with ./app and ./proxy
   - ssl
 
 # do this, do that, king in the castle, king in the castle
