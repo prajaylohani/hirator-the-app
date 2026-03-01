@@ -3,13 +3,13 @@ import subprocess
 import yaml
 import tempfile
 from werkzeug.utils import secure_filename
+from werkzeug.middleware.proxy_fix import ProxyFix
 from flask import (
     Flask,
     request,
     render_template,
     send_from_directory,
 )
-
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 DEFAULT_TEX_TEMPLATE = "cv-compact"
@@ -19,6 +19,8 @@ DEFAULT_FILENAME = "document"
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 5 * 1000 * 1000  # 5mb
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+
 
 app.jinja_options = {
     "block_start_string": "<BLOCK>",

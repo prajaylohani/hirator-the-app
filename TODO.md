@@ -1,8 +1,7 @@
 # UPNEXT
 - nginx
-  - try isolated nginx in docker
-  - create a compose to run hirator alone
-  - create a compose to connect hirator with nginx container
+  - need to move flask and nginx in different folders in the root with specific dockerfile, then build with ./app and ./proxy
+  - ssl
 
 # do this, do that, king in the castle, king in the castle
 - [x] docker runs everything in a container at the top level
@@ -89,7 +88,7 @@
 - [x] bullets only profile has more space between bullets and top line above it: fix vspace{-\baselineskip}
 - [x] why are there so many tabularx? tables arent even used now, or are they? remove if possible: nah hes carrying the formatting heavy!
 - [x] why does sidebar compiles correctly on second compile: using latexmk to handle multiple compiles automatically
-- [ ] what happens if 2 or more people try to use the app?
+- [x] what happens if 2 or more people try to use the app?
   - [x] can the site handle multiple app instances: multithreads for dev, wsgi for prod
   - [x] avoid file sharing, delete after exec: use tempfile
   - [x] prolly need to use temp directory to avoid overwriting in the exports and uploads directory
@@ -100,11 +99,11 @@
   - [x] check sessions: nah fuck cookies! its useful for keeping user logged in for a session, also fuck logins!
   - [x] check celery / redis: useful as a task queue management for long / slow operation, so maybe not here
   - [x] fastAPI for async?: no, its good for high performance api specific usecases, not for html rendering: experiment later
-  - [ ] nginx: for safe internet expose: reverse proxy + ssl + handle slow clients and static files
+  - [x] nginx: for safe internet expose: reverse proxy + ssl + handle slow clients and static files
   - [x] remove debug / dev mode things before public:
     - [x] remove from flask command
     - [x] remove from docker run
-  - [ ] user -> nginx -> gunicorn -> flask
+  - [x] user -> nginx -> gunicorn -> flask
   - [x] update commands below then
   - [x] update requirements for imports
 - [x] clear slurs before push
@@ -127,11 +126,16 @@
   - [ ] name like yaml2pdf, yaml2tex, tex2pdf? and separate tex options?
   - [ ] add download source as tex and download source as yaml? or content aware with a single download source button?
 - [x] optimize dockerfile for better layer caching
+- [ ] check if lighter alternative for texlive (>2gb):
+  - [ ] texlive base/minimal image? might need to install some packages manually
+  - [x] kjarosh?: texlive is better maintained
+  - [x] whats sharelatex, backend of overleaf?: yes, so its a full setup with db and editer, so no bc overkill
 
 ## the commands:
 - docker build: `docker build . -t hirator`
 - docker run: `docker run --name hirator --rm -p 5100:5100 hirator:latest`
 - docker debug: `docker exec -it hirator /bin/bash`
+- docker compose: `docker compose up --build`
 
 - [ ] update this, or remove from here? can i link the cv-sample content here?
 ## sample input (* optional):

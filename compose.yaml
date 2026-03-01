@@ -1,0 +1,24 @@
+services:
+  flask:
+    build: .
+    container_name: app
+    expose:
+      - 5100
+    networks:
+      - app-proxy
+    restart: unless-stopped
+
+  nginx:
+    build: ./proxy
+    container_name: proxy
+    ports:
+      - 80:80
+    depends_on:
+      - flask
+    networks:
+      - app-proxy
+    restart: unless-stopped
+
+networks:
+  app-proxy:
+    driver: bridge
