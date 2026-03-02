@@ -31,8 +31,8 @@ workexperience:
     company: company
     location: city, country
     time:
-      from: then
-      till: now
+      from: "then"
+      till: "now"
     description:
       - did this
       - did that
@@ -43,8 +43,8 @@ education:
     institute: institute
     location: country
     time:
-      from: then
-      till: now
+      from: "01.1234"
+      till: "02.1234"
     focus:
       - this
       - that
@@ -62,8 +62,8 @@ certifications:
     affiliation: affiliation
     platform: platform
     time:
-      from: then
-      till: now
+      from: "then"
+      till: "now"
     content:
       - this
       - that
