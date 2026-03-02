@@ -129,7 +129,8 @@
   - [x] texlive base/minimal image? might need to install some packages manually: use the full(latest) image for now, only affects the storage on server, not storage, and its picky on the used packages side
   - [x] kjarosh?: texlive is better maintained
   - [x] whats sharelatex, backend of overleaf?: yes, so its a full setup with db and editer, so no bc overkill, also just 1 tag of 2.9gb: yeah crashes even on medium image, tank it!
-- [ ] port 80 conflicting with pihold on raspi: switched to port 5100
+- [x] port 80 conflicting with pihold on raspi: switched to port 5100
+- [x] add custom font option in yaml
 
 ## the commands:
 - docker build: `docker build . -t hirator`

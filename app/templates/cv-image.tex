@@ -47,16 +47,17 @@
 
 \setmainfont{<VAR> meta.fontstyle|default('TeX Gyre Termes', true) </VAR>}
 
-% custom fonts off for now
-% \setmainfont{HankenGrotesk}[
-%     Path=../fonts/HankenGrotesk/static/,         % Path to the directory containing the font file
-%     Extension=.ttf,                             % Extension of the font file
-%     UprightFont=*-Regular,                      % The font for normal text
-%     BoldFont=*-Bold,                            % The font for bold text
-%     ItalicFont=*-Italic,                        % The font for italic text
-%     BoldItalicFont=*-BoldItalic,                % The font for bold italic text
-%     Numbers=Tabular                             % Make the numbers monospaced
-% ]
+<BLOCK> if meta.customfont </BLOCK>
+\setmainfont{<VAR> meta.customfont </VAR>}[
+    Path=/usr/src/app/fonts/<VAR> meta.customfont </VAR>/static/, % Path to the directory containing the font file
+    Extension=.ttf,                             % Extension of the font file
+    UprightFont=*-Regular,                      % The font for normal text
+    BoldFont=*-Bold,                            % The font for bold text
+    ItalicFont=*-Italic,                        % The font for italic text
+    BoldItalicFont=*-BoldItalic,                % The font for bold italic text
+    Numbers=Tabular,                            % Make the numbers monospaced
+]
+<BLOCK> endif </BLOCK>
 
 % table preamble
 \setlist[itemize]{                              % define global itemize parameters

@@ -4,6 +4,7 @@ meta:
   hmargin: 0.02\paperwidth
   vmargin: 2.5\hmargin
   fontstyle: TeX Gyre Heros
+  customfont: Figtree
   fontsize: 10pt
   titlesize: 42pt
   sidebarcolor: SkyBlue
