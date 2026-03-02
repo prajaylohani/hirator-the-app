@@ -12,7 +12,7 @@ services:
     build: ./proxy
     container_name: proxy
     ports:
-      - 80:80
+      - 5100:80
     depends_on:
       - flask
     networks:
