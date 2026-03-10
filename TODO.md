@@ -1,7 +1,3 @@
-# UPNEXT
-- nginx
-  - ssl
-
 # do this, do that, king in the castle, king in the castle
 - [x] docker runs everything in a container at the top level
 - [x] flask just creates and hosts the webapp to take inputs
@@ -100,6 +96,7 @@
   - [x] check celery / redis: useful as a task queue management for long / slow operation, so maybe not here
   - [x] fastAPI for async?: no, its good for high performance api specific usecases, not for html rendering: experiment later
   - [x] nginx: for safe internet expose: reverse proxy + ssl + handle slow clients and static files
+  - [x] ssl handled by cloudflare tunnel, no point to ssl internally from docker to cloudflared when both are running on the same machine
   - [x] remove debug / dev mode things before public:
     - [x] remove from flask command
     - [x] remove from docker run
