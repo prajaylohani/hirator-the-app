@@ -6,7 +6,7 @@
 \documentclass[<VAR> meta.fontsize|default('10pt', true) </VAR>]{extarticle} % switched from article to extarticle to avoid extsizes package import
 \usepackage{array, multirow}
 \newlength{\hmargin}
-\setlength{\hmargin}{<VAR> meta.hmargin|default('0.5cm', true) </VAR>}
+\setlength{\hmargin}{<VAR> meta.hmargin|default('0.75cm', true) </VAR>}
 \newlength{\vmargin}
 \setlength{\vmargin}{<VAR> meta.vmargin|default('1cm', true) </VAR>}
 \usepackage[a4paper,
@@ -70,13 +70,13 @@
 
 % paracol preamble
 \setlength{\columnsep}{2\hmargin}     % space between columns
-\newcommand{\colratio}{<VAR> meta.columnratio|default('0.22', true) </VAR>}
+\newcommand{\colratio}{<VAR> meta.columnratio|default('0.25', true) </VAR>}
 \columnratio{\colratio}  % ratio on textwidth = paperwidth - hmargins - columnseps
 
 % sidebar preamble
 \newcommand{\sidebarcolor}{
 \begin{tikzpicture}[remember picture,overlay]
-  \fill[<VAR> meta.sidebarcolor|default('LightSkyBlue', true) </VAR>]
+  \fill[<VAR> meta.sidebarcolor|default('Silver', true) </VAR>]
   % \fill[LightSkyBlue]
   % \fill[SlateGray]
   % \fill[CadetBlue]
@@ -182,7 +182,7 @@
 \switchcolumn
 <BLOCK> if contact </BLOCK>
 <BLOCK> if contact.name </BLOCK>
-{\centering \fontsize{<VAR> meta.titlesize|default('42pt', true) </VAR>}{0} \selectfont <VAR> contact.name </VAR> \par}
+{\centering \fontsize{<VAR> meta.titlesize|default('36pt', true) </VAR>}{0} \selectfont <VAR> contact.name </VAR> \par}
 <BLOCK> endif </BLOCK>
 <BLOCK> if contact.position </BLOCK>
 {\centering\Large\textit{<VAR> contact.position </VAR>}\par}

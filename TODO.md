@@ -128,6 +128,7 @@
   - [x] whats sharelatex, backend of overleaf?: yes, so its a full setup with db and editer, so no bc overkill, also just 1 tag of 2.9gb: yeah crashes even on medium image, tank it!
 - [x] port 80 conflicting with pihold on raspi: switched to port 5100
 - [x] add custom font option in yaml
+- [ ] add github link in website
 
 ## the commands:
 - docker build: `docker build . -t hirator`

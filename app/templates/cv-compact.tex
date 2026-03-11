@@ -7,7 +7,7 @@
 \documentclass[<VAR> meta.fontsize|default('10pt', true) </VAR>]{extarticle}                % switched from article to extarticle to avoid extsizes package import
 \usepackage{array, multirow}
 \newlength{\hmargin}
-\setlength{\hmargin}{<VAR> meta.hmargin|default('0.5cm', true) </VAR>}
+\setlength{\hmargin}{<VAR> meta.hmargin|default('0.75cm', true) </VAR>}
 \newlength{\vmargin}
 \setlength{\vmargin}{<VAR> meta.vmargin|default('1cm', true) </VAR>}
 \usepackage[a4paper,
@@ -77,7 +77,7 @@
 \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X}
 
     <BLOCK> if contact.name </BLOCK>
-    \fontsize{<VAR> meta.titlesize|default('42pt', true) </VAR>}{0}
+    \fontsize{<VAR> meta.titlesize|default('36pt', true) </VAR>}{0}
     \selectfont <VAR> contact.name </VAR> \\
     <BLOCK> endif </BLOCK>
 
