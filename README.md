@@ -1,14 +1,8 @@
-# [WIP] todo of the readme (meta):
-refer well documented projects like:
-- [hypr](https://wiki.hypr.land/Configuring/Variables)
-- [niri](https://github.com/niri-wm/niri)
-- [rofi](https://github.com/davatorium/rofi)
-
 # Hirator
 
-## About
-
 Hirator is an open source webapp that lets you create pdf documents, like resume, using simple text from webbrowser.
+
+## About
 
 - [ ] add more details here
 
