@@ -133,4 +133,6 @@
 - [x] update the "or load sample" to "or fill sample data"
 - [ ] sample isnt really sample, its all the options available in yaml: convert [dummy cv](./app/templates/dummy-cv.md) to yaml
 - [ ] add image option to the compact cv format?
-- [ ] pick better favicon and add the fancy things at the top of the readme
+- [ ] pick a better favicon and add the fancy things at the top of the readme
+- [x] fix line breaks in readme
+- [x] add licence and update in readme

@@ -6,6 +6,12 @@ refer well documented projects like:
 
 # Hirator
 
+## About
+
+Hirator is an open source webapp that lets you create pdf documents, like resume, using simple text from webbrowser.
+
+- [ ] add more details here
+
 ## Table of Contents
 
 - [About](#about)
@@ -18,12 +24,6 @@ refer well documented projects like:
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
-
-## About
-
-Hirator is an open source webapp that lets you create pdf documents, like resume, using simple text from webbrowser.
-
-- [ ] add more details here
 
 ## Features
 
@@ -44,12 +44,12 @@ Hirator is an open source webapp that lets you create pdf documents, like resume
 
 Before following the installation steps, make sure you have the following prerequisites installed.
 
-### Prerequisite:
+### Prerequisites:
 
 - [Git](https://git-scm.com/install)
 - [Docker](https://docs.docker.com/engine/install)
 
-Clone the repository and start the docker services:
+Clone the repository and start the docker services using the following commands:
 ```bash
 git clone https://github.com/prajaylohani/hirator-the-app.git
 cd hirator-the-app
@@ -61,6 +61,7 @@ Visit `http://localhost:5100` on web browser
 ## Usage
 
 There are 2 ways to use the webapp:
+
 1. [Normal way](#normal-way)
 2. [Advanced TeX way](#advanced-tex-way) **(use only if you know LaTeX)**
 
@@ -70,15 +71,23 @@ There are 2 ways to use the webapp:
 
 Type your document content in the input text area in YAML format and press `Download PDF` button.
 You can learn more about YAML [here](https://www.yaml.info/learn/index.html), you don't really need to.
-To get started, you can fill the input with sample data using `Or fill sample data` button. This will give an idea on how the input text should look like.
+
+To get started, you can fill the input with sample data using `Or fill sample data` button.
+This will give an idea on how the input text should look like.
+
 All the available options in the YAML input is documented [below](#options).
+
 If you already have a source file, then you can also fill the input field from it using `Fill from source file` button.
+
 Give your document a name. It'll default to `document` if left empty.
+
 You can also select an image (if the document template supports) using `Select image file` button.
 
 **To be changed:**
+
 The current sample displays **ALL** the available options.
 Use it to see all the options, but I wouldn't recommend using it as it is in the input.
+
 It'll be updated with a more relevant sample and all the options will be documented in [options section](#options) below.
 
 #### Options
@@ -176,7 +185,7 @@ hobbies:
   - and that
 ```
 
-##### UNVERIFIED: Standard font collections
+##### Standard font collections (to be removed)
 
 1. TeX Gyre Collection (Most common, XeLaTeX-ready)
 - TeX Gyre Termes      # Times New Roman
@@ -209,10 +218,14 @@ hobbies:
 ### Advanced TeX way
 
 If you're comfortable in LaTeX, then you can take advantage of compiling the PDF directly from a LaTeX source code.
+
 On the backend, the project is running the latest (at the time of deployment) [TeX Live docker image](https://gitlab.com/islandoftex/images/texlive).
+
 Simply fill the input text area with your LaTeX code and press the `Download PDF` button in the `Advanced TeX` section to compile it.
+
 The `Download source as TeX` button saves your input as a `.tex` file.
-There's also an option to generate LaTeX file from normal YAML input using the `YAML to TeX` button.
+
+Use `YAML to TeX` button to generate LaTeX file from normal YAML input.
 
 **Note:** Debugging the code is not possible online. If your code compilation fails, then the app throws a generic `Not Found` error message without any log.
 
@@ -228,6 +241,7 @@ Data is not saved in the host machine or in the containers.
 So, besides the traditional methods like docker logs, when running locally I'd suggest:
 - changing the source code to save data temporarily, and/or
 - running a shell inside the container using the following commands:
+
 ``` bash
 # for flask app
 docker exec -it app /bin/bash
@@ -238,14 +252,18 @@ docker exec -it proxy /bin/ash
 
 ## License
 
-- [ ] update after adding license
+The project is licensed under [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.en.html).
+
+See the [LICENSE](./LICENSE) file for more details.
 
 ## Contributing
 
 Thanks for considering to contribute to this project!
-I haven't thought of any standard code of conduct for contribution yet.
 
-Here's a simple workflow you can follow:
+There is no standard code of conduct for contribution for this project.
+
+Here's a general workflow you can follow:
+
 1. Fork the repo & clone locally
 2. Create a feature branch
 3. Make your changes and commit
@@ -255,4 +273,5 @@ Here's a simple workflow you can follow:
 ## Contact
 
 Please open an [issue](https://github.com/prajaylohani/hirator-the-app/issues) with relevant label or start a [dicussion](https://github.com/prajaylohani/hirator-the-app/discussions) for project related topics.
+
 For other topics, mail me at [prajaylohani@gmail.com](mailto:prajaylohani@gmail.com).
