@@ -11,11 +11,15 @@
 
 <body>
 	<h1>hirator</h1>
+	<a href="https://github.com/prajaylohani/hirator-the-app" target="_blank">
+		View Source Code
+	</a>
+
 	<form method="post" enctype="multipart/form-data">
-		<label for="fileInput">Select source file (.yaml or .tex)</label>
+		<label for="fileInput">Fill from source file (.yaml or .tex)</label>
 		<input type="file" id="fileInput" accept=".yaml,.yml,.tex">
 		<button type="button" onclick="loadSample(&quot;<VAR> url_for('download_sample') </VAR>&quot;)">
-			Or load sample</button>
+			Or fill sample data</button>
 
 		<input type="text" name="filename" placeholder="Enter document name (optional)">
 		<textarea id="preview" name="preview" placeholder="Write document contents here..." maxlength="50000"
