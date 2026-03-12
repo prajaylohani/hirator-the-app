@@ -136,3 +136,5 @@
 - [ ] pick a better favicon and add the fancy things at the top of the readme
 - [x] fix line breaks in readme
 - [x] add licence and update in readme
+- [ ] add version tag when readme is completed
+- [x] add website in readme

@@ -1,6 +1,10 @@
-# Hirator
+# hirator
 
-Hirator is an open source webapp that lets you create pdf documents, like resume, using simple text from webbrowser.
+[Visit Website](https://hirator.prajaylohani.com)
+
+hirator is an open source webapp that lets you create pdf documents, like resume, using simple text from webbrowser.
+
+**Note:** This documentation is still in WIP phase.
 
 ## About
 
