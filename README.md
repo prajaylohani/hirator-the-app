@@ -258,7 +258,7 @@ See the [LICENSE](./LICENSE) file for more details.
 
 Thanks for considering to contribute to this project!
 
-There is no standard code of conduct for contribution for this project.
+There is no standard code of conduct for contributing to this project.
 
 Here's a general workflow you can follow:
 
