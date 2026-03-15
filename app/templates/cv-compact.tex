@@ -97,6 +97,29 @@
 \end{tabularx}
 <BLOCK> endif </BLOCK>
 
+<BLOCK> if profile </BLOCK>
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
+
+    \large\textbf{\IfLanguageName{ngerman}{PROFIL}{PROFILE}} \\
+    \toprule[1pt]
+
+    <BLOCK> if profile.paragraph </BLOCK>
+    <VAR> profile.paragraph </VAR>
+    <BLOCK> endif </BLOCK>
+    <BLOCK> if profile.list </BLOCK>
+    <BLOCK> if not profile.paragraph </BLOCK>
+    \vspace{-\medskipamount}
+    <BLOCK> endif </BLOCK>
+    \begin{itemize}
+    <BLOCK> for item in profile.list </BLOCK>
+        \item <VAR> item </VAR>
+    <BLOCK> endfor </BLOCK>
+    \end{itemize}
+    <BLOCK> endif </BLOCK>
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
 <BLOCK> if workexperience </BLOCK>
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
 
@@ -106,6 +129,7 @@
     <BLOCK> for work in workexperience </BLOCK>
         <BLOCK> if not loop.first </BLOCK>
 
+        \\
         \toprule[0.5pt]
         <BLOCK> endif </BLOCK>
         <BLOCK> if work.position </BLOCK>
@@ -131,7 +155,7 @@
         <BLOCK> endfor </BLOCK>
         \end{itemize}
         <BLOCK> endif </BLOCK>
-        \\
+
     <BLOCK> endfor </BLOCK>
 
 \end{tabularx}
@@ -146,6 +170,7 @@
     <BLOCK> for study in education </BLOCK>
         <BLOCK> if not loop.first </BLOCK>
 
+        \\
         \toprule[0.5pt]
         <BLOCK> endif </BLOCK>
         <BLOCK> if study.degree </BLOCK>
@@ -187,7 +212,6 @@
         <BLOCK> endfor </BLOCK>
         \end{itemize}
         <BLOCK> endif </BLOCK>
-        \\
         <BLOCK> endif </BLOCK>
     <BLOCK> endfor </BLOCK>
 
@@ -220,6 +244,7 @@
     <BLOCK> for cert in certifications </BLOCK>
         <BLOCK> if not loop.first </BLOCK>
 
+        \\
         \toprule[0.5pt]
         <BLOCK> endif </BLOCK>
         <BLOCK> if cert.name </BLOCK>
@@ -243,7 +268,7 @@
         \textbf{\IfLanguageName{ngerman}{Inhalt}{Content}}: 
         <VAR> cert.content | join(', ') </VAR>
         <BLOCK> endif </BLOCK>
-        \\
+
     <BLOCK> endfor </BLOCK>
 
 \end{tabularx}

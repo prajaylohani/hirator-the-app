@@ -138,3 +138,7 @@
 - [x] add licence and update in readme
 - [ ] add version tag when readme is completed
 - [x] add website in readme
+- [ ] add a cover letter template
+- [x] issue with $, add to escape characters
+- [x] move line breaks to above toprule in cv-compact
+- [x] add profile option to the compact cv format?

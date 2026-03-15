@@ -41,7 +41,7 @@ def allowed_file(filename):
 
 def escape_yaml_amp_percent(data):
     if isinstance(data, str):
-        return data.replace("&", r"\&").replace("%", r"\%")
+        return data.replace("&", r"\&").replace("%", r"\%").replace("$", r"\$")
     elif isinstance(data, dict):
         return {k: escape_yaml_amp_percent(v) for k, v in data.items()}
     elif isinstance(data, list):

@@ -77,10 +77,6 @@
 \newcommand{\sidebarcolor}{
 \begin{tikzpicture}[remember picture,overlay]
   \fill[<VAR> meta.sidebarcolor|default('Silver', true) </VAR>]
-  % \fill[LightSkyBlue]
-  % \fill[SlateGray]
-  % \fill[CadetBlue]
-  % \fill[DarkSeaGreen]
     (current page.north west) % top left
     rectangle
     ([xshift=\colratio*(\textwidth - \columnsep) + 2\hmargin]current page.south west); % bottom right
@@ -89,9 +85,8 @@
 \AddEverypageHook{\sidebarcolor}
 
 \begin{document}
-\selectlanguage{<VAR> meta.language|default('english', true) </VAR>} % Switch to ngerman here for the other version
+\selectlanguage{<VAR> meta.language|default('english', true) </VAR>}
 
-%%%%%% PAGE 1 %%%%%%
 \begin{paracol}{2}
 
 <BLOCK> if meta.imagename </BLOCK>
@@ -147,8 +142,7 @@
 \end{tabularx}
 <BLOCK> endif </BLOCK>
 
-%%%%%% PAGE BREAK FOR LEFT COLUMN %%%%%%
-% \newpage
+% \newpage  % page break for left column
 
 <BLOCK> if softskills </BLOCK>
 \medskip
