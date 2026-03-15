@@ -1,28 +1,24 @@
-name: Deploy Docker Compose to Pi
+name: Update Docker on Pi
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Deploy to Pi
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.PI_HOST }}
-        username: ${{ secrets.PI_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd ${{ secrets.PI_PATH }}
+      - name: Pull latest code
+        run: |
+          cd /home/ironi/Documents/hirator
           git pull origin main
-          docker compose pull || true
-          docker compose up -d --remove-orphans
-          docker system prune -f
+
+      - name: Rebuild and restart Docker container
+        run: |
+          cd /home/ironi/Documents/hirator
+          docker compose up -d --build
