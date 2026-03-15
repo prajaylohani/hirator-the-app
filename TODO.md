@@ -132,7 +132,7 @@
 - [x] update the "select source file" to "fill from source file"
 - [x] update the "or load sample" to "or fill sample data"
 - [ ] sample isnt really sample, its all the options available in yaml: convert [dummy cv](./app/templates/dummy-cv.md) to yaml
-- [ ] add image option to the compact cv format?
+- [x] add image option to the compact cv format
 - [ ] pick a better favicon and add the fancy things at the top of the readme
 - [x] fix line breaks in readme
 - [x] add licence and update in readme
@@ -142,3 +142,7 @@
 - [x] issue with $, add to escape characters
 - [x] move line breaks to above toprule in cv-compact
 - [x] add profile option to the compact cv format?
+- [x] bug: crashing when image selected with cv-compact: adapt to work without or add image option
+- [x] bug: crashing when image selected with no meta defined
+- [ ] can it split a section through pages? like half education on page 1 and rest on page 2?
+- [x] make refresh page reset all inputs

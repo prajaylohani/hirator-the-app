@@ -1,5 +1,13 @@
 let currentFileName = '';
 
+window.addEventListener('load', function() {
+    const form = document.getElementById('theForm');
+    if (form) {
+        // clear all fields to their default values on refresh
+        form.reset();
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const fileInput = document.getElementById('fileInput');
     const preview = document.getElementById('preview');

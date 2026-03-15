@@ -15,7 +15,7 @@
 		View Source Code
 	</a>
 
-	<form method="post" enctype="multipart/form-data">
+	<form id="theForm" method="post" enctype="multipart/form-data">
 		<label for="fileInput">Fill from source file (.yaml or .tex)</label>
 		<input type="file" id="fileInput" accept=".yaml,.yml,.tex">
 		<button type="button" onclick="loadSample(&quot;<VAR> url_for('download_sample') </VAR>&quot;)">

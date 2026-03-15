@@ -16,8 +16,8 @@
 ]{geometry}
 \usepackage{parskip}                            % remove indentation at the start of the para
 \usepackage{lipsum}                             % get 'Lorem ipsum'
-% \usepackage{graphicx}                           % required for inserting images
-% \graphicspath{{./images/}}                      % images directory
+\usepackage{graphicx}                           % required for inserting images
+\graphicspath{{./images/}}                      % images directory
 \usepackage{booktabs}                           % horizontal line thickness
 \usepackage[english,ngerman]{babel}             % hyphenation and language adaptation
 \usepackage{iflang}                             % conditionally switch language
@@ -78,7 +78,11 @@
 
     <BLOCK> if contact.name </BLOCK>
     \fontsize{<VAR> meta.titlesize|default('36pt', true) </VAR>}{0}
-    \selectfont <VAR> contact.name </VAR> \\
+    \selectfont <VAR> contact.name </VAR>
+    <BLOCK> if meta.imagename </BLOCK>
+    \hfill \includegraphics[height=<VAR> meta.titlesize|default('36pt', true) </VAR>]{<VAR> meta.imagename </VAR>}
+    <BLOCK> endif </BLOCK>
+    \\
     <BLOCK> endif </BLOCK>
 
     <BLOCK> if contact.email </BLOCK>

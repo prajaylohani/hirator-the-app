@@ -158,6 +158,9 @@ def upload_text():
 
             # set imagename if available
             if imagename:
+                if "meta" not in data:
+                    data["meta"] = {}
+
                 data["meta"]["imagename"] = imagename
 
             # get template if available
