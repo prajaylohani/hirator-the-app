@@ -1,87 +1,162 @@
 meta:
-  language: ngerman
+  language: english
   template: cv-image
-  hmargin: 0.02\paperwidth
-  vmargin: 2.5\hmargin
+  hmargin: 0.5cm
+  vmargin: 1.5cm
   fontstyle: TeX Gyre Heros
-  customfont: Figtree
   fontsize: 10pt
   titlesize: 42pt
-  sidebarcolor: SkyBlue
+  sidebarcolor: LightSteelBlue
   columnratio: 0.22
 
 contact:
-  name: firstname lastname
-  position: position
-  email: id@domain.com
-  linkedin: linkedin.com/in/username
-  phone: +12 3456789
-  address: str. 12, 34567 city
-  dateofbirth: 31.12.1984
+  name: Max Mustermann
+  position: Senior Software Engineer
+  email: mustermann@example.com
+  linkedin: linkedin.com/in/max
+  phone: +49 1712345678
+  address: Hauptstr. 12, 70173 Stuttgart, Germany
+  dateofbirth: 31.12.1990
 
 profile:
-  paragraph: paragraph
+  paragraph: Results‑oriented software engineer with over 5 years of experience designing, developing, and maintaining scalable web applications and backend services. Experienced in modern development practices, cloud platforms, and collaborative agile environments.
   list:
-    - this
-    - that
-    - and that
+    - Strong experience building scalable backend services and APIs
+    - Skilled in cloud platforms and containerized deployments
+    - Effective collaborator in cross‑functional agile teams
 
 workexperience:
-  - position: position
-    company: company
-    location: city, country
+  - position: Senior Software Engineer
+    company: TechSolutions GmbH
+    location: Stuttgart, Germany
     time:
-      from: "then"
+      from: "03.2022"
       till: "now"
     description:
-      - did this
-      - did that
-      - and that
+      - Designed and implemented REST APIs using Node.js and TypeScript improving system performance by 35 percent
+      - Collaborated with product managers designers and DevOps engineers to deliver new platform features
+      - Introduced automated testing and CI pipelines increasing test coverage to over 80 percent
+
+  - position: Software Developer
+    company: Digital Systems AG
+    location: Karlsruhe, Germany
+    time:
+      from: "07.2019"
+      till: "02.2022"
+    description:
+      - Developed and maintained web applications using React and Java Spring Boot
+      - Optimized database queries reducing response time by 40 percent
+      - Assisted in migrating a monolithic application to a microservices architecture
 
 education:
-  - degree: degree
-    institute: institute
-    location: country
+  - degree: M.Sc. in Computer Science
+    institute: University of Stuttgart
+    location: Germany
     time:
-      from: "01.1234"
-      till: "02.1234"
+      from: "10.2019"
+      till: "09.2021"
     focus:
-      - this
-      - that
-      - and that
+      - Distributed systems
+      - Cloud computing
+      - Machine learning systems
     thesis:
-      title: "thesis: title"
-      institute: institute
-      location: country
+      title: "Master Thesis: Scalable Cloud Native Microservices for Data Processing"
+      institute: University of Stuttgart
+      location: Germany
       description:
-        - did this
-        - did that
+        - Designed cloud native microservices using Kubernetes
+        - Evaluated system scalability under distributed workloads
+
+  - degree: B.Sc. in Computer Science
+    institute: University of Stuttgart
+    location: Germany
+    time:
+      from: "10.2015"
+      till: "06.2019"
+    focus:
+      - Software engineering
+      - Distributed systems
+      - Database systems
+    thesis:
+      title: "Bachelor Thesis: Scalable Microservice Architectures for Cloud Applications"
+      institute: University of Stuttgart
+      location: Germany
+      description:
+        - Designed a prototype microservice architecture using Docker and Kubernetes
+        - Evaluated scalability and performance of service orchestration strategies
 
 certifications:
-  - name: certification
-    affiliation: affiliation
-    platform: platform
+  - name: AWS Certified Developer Associate
+    affiliation: Amazon Web Services
+    platform: AWS
     time:
-      from: "then"
-      till: "now"
+      from: "05.2024"
     content:
-      - this
-      - that
-      - and that
+      - Cloud application development
+      - AWS service integration
+      - Deployment and monitoring strategies
+      
+  - name: Professional Scrum Master I
+    affiliation: Scrum.org
+    platform: Scrum.org
+    time:
+      from: "03.2023"
+      till: "04.2024"
+    content:
+      - Agile frameworks and Scrum principles
+      - Team facilitation and sprint planning
+      - Agile project delivery
+
+  - name: Google Professional Cloud Architect
+    affiliation: Google
+    platform: Google Cloud
+    time:
+      from: "11.2022"
+    content:
+      - Cloud architecture design
+      - Scalable infrastructure planning
+      - Security and cost optimization
 
 skills:
-  - category: category
+  - category: Programming
     list:
-      - this
-      - that
-      - and that
+      - Java
+      - TypeScript
+      - Python
+
+  - category: Frameworks
+    list:
+      - Spring Boot
+      - React
+      - Node.js
+
+  - category: Databases
+    list:
+      - PostgreSQL
+      - MongoDB
+      - Redis
+
+  - category: Tools and Platforms
+    list:
+      - Git
+      - Docker
+      - Kubernetes
+      - AWS
+
+  - category: Practices
+    list:
+      - Unit testing
+      - CI CD
+      - Agile Scrum
+      - Code review
 
 softskills:
-  - this
-  - that
-  - and that
+  - Team collaboration
+  - Problem solving
+  - Communication
+  - Adaptability
 
 hobbies:
-  - this
-  - that
-  - and that
+  - Hiking
+  - Open source contribution
+  - Photography
