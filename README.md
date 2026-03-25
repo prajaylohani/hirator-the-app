@@ -58,15 +58,6 @@ Visit `http://localhost:5100` on web browser
 
 ## Usage
 
-There are 2 ways to use the webapp:
-
-1. [Normal way](#normal-way)
-2. [Advanced TeX way](#advanced-tex-way) **(use only if you know LaTeX)**
-
-**Note:** No data is stored! So make sure to download your source if you'd like to use it again later.
-
-### Normal way
-
 Type your document content in the input text area in YAML format and press `Download PDF` button.
 You can learn more about YAML [here](https://www.yaml.info/learn/index.html), you don't really need to.
 
@@ -81,107 +72,69 @@ Give your document a name. It'll default to `document` if left empty.
 
 You can also select an image (if the document template supports) using `Select image file` button.
 
-**To be changed:**
-
-The current sample displays **ALL** the available options.
-Use it to see all the options, but I wouldn't recommend using it as it is in the input.
-
-It'll be updated with a more relevant sample and all the options will be documented in [options section](#options) below.
-
 #### Options
 - [ ] add detailed description for options (with references and defaults): ref hypr docs
 - [ ] link the complete list of available fonts (need to find)
 - [ ] [list of available colours: section 4.3 (svgnames) and 4.4 (x11names)](https://ftp.rrzn.uni-hannover.de/pub/mirror/tex-archive/macros/latex/contrib/xcolor/xcolor.pdf)
+- [ ] add note to use dates in double quotes, else leading zero is removed
+- [ ] add note to use unescaped characters (like colon : ) in double quotes, like `"Master Thesis: XYZ"`
+- [ ] remove softskills section
+- [ ] certifications.name to certifications.title (updated in the table below)
 
-```yaml
-meta:
-  language: ngerman
-  template: cv-image
-  hmargin: 0.02\paperwidth
-  vmargin: 2.5\hmargin
-  fontstyle: TeX Gyre Heros
-  customfont: Figtree
-  fontsize: 10pt
-  titlesize: 42pt
-  sidebarcolor: SkyBlue
-  columnratio: 0.22
-
-contact:
-  name: firstname lastname
-  position: position
-  email: id@domain.com
-  linkedin: linkedin.com/in/username
-  phone: +12 3456789
-  address: str. 12, 34567 city
-  dateofbirth: 31.12.1984
-
-profile:
-  paragraph: paragraph
-  list:
-    - this
-    - that
-    - and that
-
-workexperience:
-  - position: position
-    company: company
-    location: city, country
-    time:
-      from: "then"
-      till: "now"
-    description:
-      - did this
-      - did that
-      - and that
-
-education:
-  - degree: degree
-    institute: institute
-    location: country
-    time:
-      from: "01.1234"
-      till: "02.1234"
-    focus:
-      - this
-      - that
-      - and that
-    thesis:
-      title: "thesis: title"
-      institute: institute
-      location: country
-      description:
-        - did this
-        - did that
-
-certifications:
-  - name: certification
-    affiliation: affiliation
-    platform: platform
-    time:
-      from: "then"
-      till: "now"
-    content:
-      - this
-      - that
-      - and that
-
-skills:
-  - category: category
-    list:
-      - this
-      - that
-      - and that
-
-softskills:
-  - this
-  - that
-  - and that
-
-hobbies:
-  - this
-  - that
-  - and that
-```
+| Name | Description | Type | Default | Options |
+| - | - | - | - | - |
+| meta | format customization | [ ] | - | - |
+| meta.language | document language | string | english | english, ngerman |
+| meta.template | document template | string | cv-compact | cv-compact, cv-image, cl-compact |
+| meta.hmargin | horizontal margin | length | 0.75cm | [latex margin doc] |
+| meta.vmargin | vertical margin | length | 1cm | [latex margin doc] |
+| meta.fontstyle | font style | string | TeX Gyre Termes | [font list (?)] |
+| meta.fontsize | font size | length | 10pt | [latex fontsize doc] |
+| meta.titlesize | font size of title | length | 36pt | [latex fontsize doc] |
+| meta.sidebarcolor | sidebar color | string | Silver | [list of colours] |
+| meta.columnratio | ratio of left column to textwidth | float(?) | 0.25 | [paracol columnratio] |
+| contact | contact information | [ ] | - | - |
+| contact.name | name | string | - | - |
+| contact.position | position | string | - | - |
+| contact.email | email address, creates link | string | - | - |
+| contact.linkedin | linkedin account without "https://www.", creates link | string | - | - |
+| contact.phone | phone number, creates link | string | - | - |
+| contact.address | address | string | - | - |
+| contact.dateofbirth | date of birth | string | - | - |
+| profile | profile / summary / motivation | [ ] | - | - |
+| profile.paragraph | profile in paragraph format | string | - | - |
+| profile.list | profile in list format | list | - | - |
+| workexperience | work experience | list | - | - |
+| workexperience.position | position | string | - | - |
+| workexperience.company | company | string | - | - |
+| workexperience.location | location | string | - | - |
+| workexperience.time | time | time | - | [time type readme] |
+| workexperience.description | description | list | - | - |
+| education | education | list | - | - |
+| education.degree | degree | string | - | - |
+| education.institute | institute | string | - | - |
+| education.location | location | string | - | - |
+| education.time | time | time | - | [time type readme] |
+| education.focus | focus | list | - | - |
+| education.thesis | thesis | [ ] | - | - |
+| education.thesis.title | title | string | - | - |
+| education.thesis.institute | institute | string | - | - |
+| education.thesis.location | location | string | - | - |
+| education.thesis.description | description | list | - | - |
+| certifications | certifications | list | - | - |
+| certifications.title | title | string | - | - |
+| certifications.affiliation | affiliation | string | - | - |
+| certifications.platform | platform| string | - | - |
+| certifications.time | time | time | - | [time type readme] |
+| certifications.content | content | list | - | - |
+| skills | skills | list | - | - |
+| skills.category | category | string | - | - |
+| skills.list | list | list  | - | - |
+| softskills | soft skills | list | - | - |
+| hobbies | hobbies | list | - | - |
+| * time | time | [ ] | - | - |
+| * time.from | from when, write inside double quotes | "string" | - | - |
+| * time.till | till when, write inside double quotes | "string" | - | - |
 
 ##### Standard font collections (to be removed)
 
@@ -213,7 +166,7 @@ hobbies:
 - STIX Two Text
 - STIX Two Math
 
-### Advanced TeX way
+### Advanced TeX
 
 If you're comfortable in LaTeX, then you can take advantage of compiling the PDF directly from a LaTeX source code.
 
