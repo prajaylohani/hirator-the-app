@@ -11,7 +11,7 @@ RUN apk add --no-cache git findutils
 WORKDIR /app
 
 # init shadcn
-RUN yes | npx shadcn@latest init --preset b2BphlPSy --template next --name frontend
+RUN yes | npx shadcn@latest init --preset b2BphlOOu --template next --name frontend
 WORKDIR /app/frontend
 
 # install shadcn components
