@@ -86,7 +86,7 @@ education:
         - Evaluated scalability and performance of service orchestration strategies
 
 certifications:
-  - name: AWS Certified Developer Associate
+  - title: AWS Certified Developer Associate
     affiliation: Amazon Web Services
     platform: AWS
     time:
@@ -96,7 +96,7 @@ certifications:
       - AWS service integration
       - Deployment and monitoring strategies
       
-  - name: Professional Scrum Master I
+  - title: Professional Scrum Master I
     affiliation: Scrum.org
     platform: Scrum.org
     time:
@@ -107,7 +107,7 @@ certifications:
       - Team facilitation and sprint planning
       - Agile project delivery
 
-  - name: Google Professional Cloud Architect
+  - title: Google Professional Cloud Architect
     affiliation: Google
     platform: Google Cloud
     time:

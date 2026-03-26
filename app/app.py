@@ -11,6 +11,7 @@ from flask import (
     send_from_directory,
 )
 
+
 ALLOWED_IMAGE_TYPES = {"jpg", "jpeg", "png"}
 DEFAULT_TEX_TEMPLATE = "cv-compact"
 SAMPLE_YAML = "cv-sample.yaml"
@@ -66,15 +67,6 @@ def tex2pdf(dir, texpath):
     )
 
 
-def download_yaml(dir, filename):
-    return send_from_directory(
-        dir,
-        filename + ".yaml",
-        mimetype="text/plain",
-        as_attachment=False,
-    )
-
-
 def download_tex(dir, filename):
     return send_from_directory(
         dir,
@@ -92,101 +84,86 @@ def download_pdf(dir, filename):
     )
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/upload", methods=["POST"])
 def upload_text():
-    if request.method == "POST":
-        with tempfile.TemporaryDirectory() as tmpdir:
-            # get image
-            image = request.files.get("image")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # get image
+        image = request.files.get("image")
 
-            if image and image.filename != "":
-                if not allowed_file(image.filename):
-                    return f"""
+        if image and image.filename != "":
+            if not allowed_file(image.filename):
+                return f"""
                         <h1> Invalid file type </h1>
                         <p> Please upload a valid image. <br>
                          Accepted image types: {", ".join(ALLOWED_IMAGE_TYPES)} </p>
                     """
 
-                imagename = secure_filename(image.filename)
-                imagepath = os.path.join(tmpdir, imagename)
-                image.save(imagepath)
-            else:
-                imagename = None
+            imagename = secure_filename(image.filename)
+            imagepath = os.path.join(tmpdir, imagename)
+            image.save(imagepath)
+        else:
+            imagename = None
 
-            action = request.form.get("action")
+        action = request.form.get("action")
 
-            # get filename
-            filename = request.form.get("filename", DEFAULT_FILENAME).strip()
-            if not filename:
-                filename = DEFAULT_FILENAME
+        # get filename
+        filename = request.form.get("filename", DEFAULT_FILENAME).strip()
+        if not filename:
+            filename = DEFAULT_FILENAME
 
-            # set filepath
-            yamlpath = os.path.join(tmpdir, filename + ".yaml")
-            texpath = os.path.join(tmpdir, filename + ".tex")
+        # set filepath
+        yamlpath = os.path.join(tmpdir, filename + ".yaml")
+        texpath = os.path.join(tmpdir, filename + ".tex")
 
-            # read raw data
-            rawdata = request.form.get("preview", "")
+        # read raw data
+        rawdata = request.form.get("preview", "")
 
-            # download tex
-            if action == "download_tex":
-                # save tex
-                with open(texpath, "w", encoding="utf-8") as f:
-                    f.write(rawdata)
-
-                return download_tex(tmpdir, filename)
-
-            # compile tex
-            if action == "compile_tex":
-                # save tex
-                with open(texpath, "w", encoding="utf-8") as f:
-                    f.write(rawdata)
-
-                tex2pdf(tmpdir, texpath)
-
-                return download_pdf(tmpdir, filename)
-
-            # save yaml
-            with open(yamlpath, "w", encoding="utf-8") as f:
-                f.write(rawdata)
-
-            # download yaml
-            if action == "download_yaml":
-                return download_yaml(tmpdir, filename)
-
-            # yaml to tex
-            data = yaml.safe_load(rawdata)
-
-            # set imagename if available
-            if imagename:
-                if "meta" not in data:
-                    data["meta"] = {}
-
-                data["meta"]["imagename"] = imagename
-
-            # get template if available
-            if "meta" in data and "template" in data["meta"]:
-                tex_template = data["meta"]["template"] + ".tex"
-            else:
-                tex_template = DEFAULT_TEX_TEMPLATE + ".tex"
-
-            escapeddata = escape_yaml_amp_percent(data)
-            output = render_template(tex_template, **escapeddata)
-
+        # compile tex
+        if action == "compile_tex":
             # save tex
             with open(texpath, "w", encoding="utf-8") as f:
-                f.write(output)
-
-            # yaml2tex
-            if action == "yaml2tex":
-                return download_tex(tmpdir, filename)
+                f.write(rawdata)
 
             tex2pdf(tmpdir, texpath)
 
-            # download pdf
-            if action == "download_pdf":
-                return download_pdf(tmpdir, filename)
+            return download_pdf(tmpdir, filename)
 
-    return render_template("index.html")
+        # save yaml
+        with open(yamlpath, "w", encoding="utf-8") as f:
+            f.write(rawdata)
+
+        # yaml to tex
+        data = yaml.safe_load(rawdata)
+
+        # set imagename if available
+        if imagename:
+            if "meta" not in data:
+                data["meta"] = {}
+
+            data["meta"]["imagename"] = imagename
+
+        # get template if available
+        if "meta" in data and "template" in data["meta"]:
+            tex_template = data["meta"]["template"] + ".tex"
+        else:
+            tex_template = DEFAULT_TEX_TEMPLATE + ".tex"
+
+        escapeddata = escape_yaml_amp_percent(data)
+        output = render_template(tex_template, **escapeddata)
+
+        # save tex
+        with open(texpath, "w", encoding="utf-8") as f:
+            f.write(output)
+
+        # yaml2tex
+        if action == "yaml2tex":
+            return download_tex(tmpdir, filename)
+
+        tex2pdf(tmpdir, texpath)
+
+        # download pdf
+        if action == "download_pdf":
+            return download_pdf(tmpdir, filename)
 
 
 @app.route("/downloads/sample")

@@ -8,6 +8,15 @@ services:
       - app-proxy
     restart: unless-stopped
 
+  nextjs:
+    build: ./frontend
+    container_name: frontend
+    expose:
+      - 3000
+    networks:
+      - app-proxy
+    restart: unless-stopped
+
   nginx:
     build: ./proxy
     container_name: proxy
@@ -15,6 +24,7 @@ services:
       - 5100:80
     depends_on:
       - flask
+      - nextjs
     networks:
       - app-proxy
     restart: unless-stopped

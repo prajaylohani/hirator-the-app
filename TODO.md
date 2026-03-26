@@ -131,9 +131,10 @@
 - [x] add github link in website
 - [x] update the "select source file" to "fill from source file"
 - [x] update the "or load sample" to "or fill sample data"
-- [ ] sample isnt really sample, its all the options available in yaml: convert [dummy cv](./app/templates/dummy-cv.md) to yaml
+- [x] sample isnt really sample, its all the options available in yaml: convert [dummy cv](./app/templates/dummy-cv.md) to yaml
 - [x] add image option to the compact cv format
-- [ ] pick a better favicon and add the fancy things at the top of the readme
+- [x] pick a better favicon
+- [ ] add the fancy things at the top of the readme
 - [x] fix line breaks in readme
 - [x] add licence and update in readme
 - [ ] add version tag when readme is completed
@@ -146,3 +147,21 @@
 - [x] bug: crashing when image selected with no meta defined
 - [ ] can it split a section through pages? like half education on page 1 and rest on page 2?
 - [x] make refresh page reset all inputs
+- [x] github actions to automate server update on commit
+- [x] remove pre code from html: verify first
+- [ ] remove softskills: it breaks, can't split a section into 2 pages
+- [x] change certifications.name to certifications.title
+- [ ] update readme after frontend changes
+- [x] remove expose from flask dockerfile
+- [ ] refactor file structure as frontend, backend, proxy: refer [this template](https://github.com/lkleinbrodt/flask-react-shadcn-template), [another good ref repo for nextjs+docker](https://github.com/vercel/next.js/blob/canary/examples/with-docker-compose)
+- [x] ux: implement tailwind for better consistent ui: check shadcn-ui
+- [x] ux: move advanced tex to collapsed expandable menu: how about tabs for adv tex? no
+- [ ] ux: full gui might be easy to implement with tailwind: if gui -> yaml
+- [x] ux: move image selection above text area
+- [ ] ux: add app version, github in footer
+- [x] ux: automate the frontend process: install engine, framework, template, components for shadcn
+- [ ] ux: going back from the pdf resets the fields: should reset only on refresh: works fine on safari
+- [ ] ux: set page title and description for the tabs: check default first
+- [ ] ux: delete broken after reload: everything breaks, website internal requests become unresponsive: works fine on safari
+- [ ] ux: add remove photo button?
+- [ ] ux: loading animation and disabled buttons broki on firefox: is it browser caching?

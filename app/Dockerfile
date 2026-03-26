@@ -13,10 +13,14 @@ RUN pip install --no-cache-dir --break-system-packages -r requirements.txt
 
 COPY app.py .
 COPY templates/ templates/
-COPY static/ static/
 COPY fonts/ fonts/
 
-EXPOSE 5100
-
-# log-level: prod=info dev=debug
-CMD ["gunicorn", "--bind", "0.0.0.0:5100", "--workers", "4", "--log-level", "info", "--access-logfile", "-", "--error-logfile", "-", "app:app"]
+CMD [ \
+  "gunicorn", \
+  "--bind", "0.0.0.0:5100", \
+  "--workers", "4", \
+  "--log-level", "info", \
+  "--access-logfile", "-", \
+  "--error-logfile", "-", \
+  "app:app" \
+]
