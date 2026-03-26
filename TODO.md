@@ -153,7 +153,7 @@
 - [x] change certifications.name to certifications.title
 - [ ] update readme after frontend changes
 - [x] remove expose from flask dockerfile
-- [ ] refactor file structure as frontend, backend, proxy: refer [this template](https://github.com/lkleinbrodt/flask-react-shadcn-template), [another good ref repo for nextjs+docker](https://github.com/vercel/next.js/blob/canary/examples/with-docker-compose)
+- [x] refactor file structure as frontend, backend, proxy: refer [this template](https://github.com/lkleinbrodt/flask-react-shadcn-template), [another good ref repo for nextjs+docker](https://github.com/vercel/next.js/blob/canary/examples/with-docker-compose)
 - [x] ux: implement tailwind for better consistent ui: check shadcn-ui
 - [x] ux: move advanced tex to collapsed expandable menu: how about tabs for adv tex? no
 - [ ] ux: full gui might be easy to implement with tailwind: if gui -> yaml
@@ -161,7 +161,9 @@
 - [ ] ux: add app version, github in footer
 - [x] ux: automate the frontend process: install engine, framework, template, components for shadcn
 - [ ] ux: going back from the pdf resets the fields: should reset only on refresh: works fine on safari
-- [ ] ux: set page title and description for the tabs: check default first
-- [ ] ux: delete broken after reload: everything breaks, website internal requests become unresponsive: works fine on safari
-- [ ] ux: add remove photo button?
+- [x] ux: set page title and description for the tabs: check default first, website is default
+- [ ] ux: delete broken after reload: everything breaks, website internal requests become unresponsive: works fine on safari and chrome, maybe firefox issue?
+- [x] ux: add remove photo button? nah, its firefox only issue
 - [ ] ux: loading animation and disabled buttons broki on firefox: is it browser caching?
+- [x] ux: favicon broken on safari: [icon source btw](https://icon-icons.com/icon/curriculum-profile-biodata-resume-portofolio-cv-vitae/232635), [favicon doc](https://favicon.io/tutorials/favicon-sizes/)
+- [ ] ux: everything so tiny, increase overall font size on desktop: maybe its my desktop scaling
