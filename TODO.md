@@ -139,7 +139,7 @@
 - [x] add licence and update in readme
 - [ ] add version tag when readme is completed
 - [x] add website in readme
-- [ ] add a cover letter template
+- [x] add a cover letter template
 - [x] issue with $, add to escape characters
 - [x] move line breaks to above toprule in cv-compact
 - [x] add profile option to the compact cv format?
@@ -151,7 +151,7 @@
 - [x] remove pre code from html: verify first
 - [ ] remove softskills: it breaks, can't split a section into 2 pages
 - [x] change certifications.name to certifications.title
-- [ ] update readme after frontend changes
+- [ ] update readme after frontend changes, also add cl changes
 - [x] remove expose from flask dockerfile
 - [x] refactor file structure as frontend, backend, proxy: refer [this template](https://github.com/lkleinbrodt/flask-react-shadcn-template), [another good ref repo for nextjs+docker](https://github.com/vercel/next.js/blob/canary/examples/with-docker-compose)
 - [x] ux: implement tailwind for better consistent ui: check shadcn-ui
@@ -160,10 +160,12 @@
 - [x] ux: move image selection above text area
 - [ ] ux: add app version, github in footer
 - [x] ux: automate the frontend process: install engine, framework, template, components for shadcn
-- [ ] ux: going back from the pdf resets the fields: should reset only on refresh: works fine on safari
+- [x] ux: going back from the pdf resets the fields: should reset only on refresh: works fine on safari
 - [x] ux: set page title and description for the tabs: check default first, website is default
-- [ ] ux: delete broken after reload: everything breaks, website internal requests become unresponsive: works fine on safari and chrome, maybe firefox issue?
+- [x] ux: delete broken after reload: everything breaks, website internal requests become unresponsive: works fine on safari and chrome, maybe firefox issue?
 - [x] ux: add remove photo button? nah, its firefox only issue
-- [ ] ux: loading animation and disabled buttons broki on firefox: is it browser caching?
+- [x] ux: loading animation and disabled buttons broki on firefox: is it browser caching?
 - [x] ux: favicon broken on safari: [icon source btw](https://icon-icons.com/icon/curriculum-profile-biodata-resume-portofolio-cv-vitae/232635), [favicon doc](https://favicon.io/tutorials/favicon-sizes/)
-- [ ] ux: everything so tiny, increase overall font size on desktop: maybe its my desktop scaling
+- [x] ux: everything so tiny, increase overall font size on desktop: its my desktop scaling
+- [x] ux: add optional badge to select source
+- [ ] ux: spinner keeps spinning: reduced timer for now, server timer?

@@ -156,7 +156,7 @@ export function InteractiveComponent() {
   const handleClickYaml = async () => {
     setIsLoadingYaml(true);
     // simulate async work: 1min timer same as tex compiler in flask
-    await new Promise((r) => setTimeout(r, 60000));
+    await new Promise((r) => setTimeout(r, 30000));
     setIsLoadingYaml(false);
   };
 
@@ -164,7 +164,7 @@ export function InteractiveComponent() {
   const handleClickTex = async () => {
     setIsLoadingTex(true);
     // simulate async work: 1min timer same as tex compiler in flask
-    await new Promise((r) => setTimeout(r, 60000));
+    await new Promise((r) => setTimeout(r, 30000));
     setIsLoadingTex(false);
   };
 
@@ -212,6 +212,9 @@ export function InteractiveComponent() {
               {/* upload source */}
               <FieldLabel htmlFor="fileInput">
                 Fill from source file (.yaml or .tex)
+                <Badge variant="secondary" className="ml-auto">
+                  Optional
+                </Badge>
               </FieldLabel>
 
               {/* <FieldDescription> */}

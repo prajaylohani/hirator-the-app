@@ -1,0 +1,147 @@
+%! TEX program = xelatex
+% chktex-file 44                                % suppress ChkTeX: User regex
+% chktex-file 9                                 % suppress ChkTeX: Wrong length of dash may have been used
+
+% \documentclass[10pt]{article}
+<BLOCK> set meta = meta|default({}) </BLOCK>
+\documentclass[<VAR> meta.fontsize|default('11pt', true) </VAR>]{extarticle}                % switched from article to extarticle to avoid extsizes package import
+\usepackage{array, multirow}
+\newlength{\hmargin}
+\setlength{\hmargin}{<VAR> meta.hmargin|default('1.25cm', true) </VAR>}
+\newlength{\vmargin}
+\setlength{\vmargin}{<VAR> meta.vmargin|default('1.25cm', true) </VAR>}
+\usepackage[a4paper,
+    hmargin=\hmargin,
+    vmargin=\vmargin,
+]{geometry}
+\usepackage{parskip}                            % remove indentation at the start of the para
+\usepackage{lipsum}                             % get 'Lorem ipsum'
+\usepackage{graphicx}                           % required for inserting images
+\graphicspath{{./images/}}                      % images directory
+\usepackage{booktabs}                           % horizontal line thickness
+\usepackage[english,ngerman]{babel}             % hyphenation and language adaptation
+\usepackage{iflang}                             % conditionally switch language
+\usepackage[dvipsnames]{xcolor}                 % additional colors for url
+\usepackage{microtype}                          % improves typesetting quality and eliminates underfull box warnings
+\usepackage{tabularx}
+\usepackage{enumitem}                           % adjust parameters for enum items
+
+% hyperlinks preamble
+\usepackage{hyperref}                           % hyperlinks package
+\hypersetup{
+    colorlinks=true,
+    % linkcolor=blue,
+    % filecolor=magenta,
+    % urlcolor=NavyBlue,
+    urlcolor=black,
+    % pdftitle={Overleaf Example},
+    % pdfpagemode=FullScreen,
+}
+
+% font preamble
+\pagestyle{empty}                               % remove page numbers
+\hyphenpenalty=10000                            % very high hyphenation penalty to avoid hyphenation
+\usepackage{fontspec}                           % Font package
+\sloppy                                         % help LaTeX to better handle line breaks (fixed text overflowing in right margin)
+
+\setmainfont{<VAR> meta.fontstyle|default('TeX Gyre Termes', true) </VAR>}
+
+<BLOCK> if meta.customfont </BLOCK>
+\setmainfont{<VAR> meta.customfont </VAR>}[
+    Path=/usr/src/app/fonts/<VAR> meta.customfont </VAR>/static/, % Path to the directory containing the font file
+    Extension=.ttf,                             % Extension of the font file
+    UprightFont=*-Regular,                      % The font for normal text
+    BoldFont=*-Bold,                            % The font for bold text
+    ItalicFont=*-Italic,                        % The font for italic text
+    BoldItalicFont=*-BoldItalic,                % The font for bold italic text
+    Numbers=Tabular,                            % Make the numbers monospaced
+]
+<BLOCK> endif </BLOCK>
+
+% itemize preamble
+\setlist[itemize]{                              % define global itemize parameters
+    leftmargin=1em,
+    itemsep=0pt,
+    parsep=0pt,
+    topsep=0pt,
+    partopsep=0pt,
+}
+
+% table preamble
+\setlength{\extrarowheight}{4pt}                % add extra height to rows
+\setlength{\tabcolsep}{0pt}                     % space between the text and the left/right border
+\setlength{\intextsep}{4pt}                     % set the space between tables
+
+%%TODO: update default margins 1.25cm, fontsize 11
+%%TODO: check bold texts: in subject? ref?
+%%TODO: update readme: it'll be a mess with the options section
+%%TODO: bullets in body?
+%%TODO: line breaks in body?
+
+\begin{document}
+\selectlanguage{<VAR> meta.language|default('english', true) </VAR>} % Switch to ngerman here for the other version
+
+<BLOCK> if contact </BLOCK>
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X r}
+
+    <BLOCK> if contact.name </BLOCK>
+    \multirow{2}{*}{\fontsize{<VAR> meta.titlesize|default('36pt', true) </VAR>}{0}\selectfont <VAR> contact.name </VAR>}
+    <BLOCK> endif </BLOCK>
+    &
+    <BLOCK> if contact.phone </BLOCK>
+    \href{tel:<VAR> contact.phone </VAR>}{<VAR> contact.phone </VAR>}
+    <BLOCK> endif </BLOCK>
+    \\
+    &
+    <BLOCK> if contact.email </BLOCK>
+    \href{mailto:<VAR> contact.email </VAR>}{<VAR> contact.email </VAR>}
+    <BLOCK> endif </BLOCK>
+    \\
+    <BLOCK> if contact.position </BLOCK>
+    \Large\textit{<VAR> contact.position </VAR>}
+    <BLOCK> endif </BLOCK>
+    &
+    <BLOCK> if contact.address </BLOCK>
+    <VAR> contact.address </VAR>
+    <BLOCK> endif </BLOCK>
+    \\
+    \bottomrule[1pt]
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if position </BLOCK>
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X}
+
+    <BLOCK> if position.company </BLOCK>
+    {\large \textbf{<VAR> position.company </VAR>}
+    <BLOCK> endif </BLOCK>
+    <BLOCK> if position.date </BLOCK>
+    \hfill \textbf{<VAR> position.date </VAR>}}
+    <BLOCK> endif </BLOCK>
+    \\
+
+    <BLOCK> if position.location </BLOCK>
+    {\large {<VAR> position.location </VAR>}}
+    \\
+    <BLOCK> endif </BLOCK>
+    \\
+
+    <BLOCK> if position.subject </BLOCK>
+    \textbf{\IfLanguageName{ngerman}{Betreff}{Subject}:} <VAR> position.subject </VAR>
+    \\
+    <BLOCK> endif </BLOCK>
+    <BLOCK> if position.referral </BLOCK>
+    \textbf{\IfLanguageName{ngerman}{Empfehlung}{Referral}:} <VAR> position.referral </VAR>
+    \\
+    <BLOCK> endif </BLOCK>
+    \\
+
+\end{tabularx}
+<BLOCK> endif </BLOCK>
+
+<BLOCK> if body </BLOCK>
+<VAR> body </VAR>
+<BLOCK> endif </BLOCK>
+
+\end{document}

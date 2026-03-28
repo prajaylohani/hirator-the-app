@@ -1,0 +1,38 @@
+meta:
+  language: english
+  template: cl-compact
+  hmargin: 1cm
+  vmargin: 1.5cm
+  fontstyle: TeX Gyre Heros
+  fontsize: 12pt
+  titlesize: 40pt
+
+contact:
+  name: Max Mustermann
+  position: Software Engineer
+  phone: +49 1712345678
+  email: mustermann@example.com
+  address: Hauptstr. 12, 70173 Stuttgart, Germany
+
+position: 
+  company: Acme GmbH
+  date: "12.03.2026"
+  location: Frankfurt, Germany
+  subject: Job application for Senior Software Engineer
+  referral: John Doe
+
+body: "Dear Hiring Manager’s Name,
+
+I am writing to express my interest in the [Software Engineer / Backend Engineer / Full-Stack Engineer] position at [Company Name], as advertised on [Job Board / Company Website]. With [X] years of experience in [backend/frontend/full-stack] development and a strong background in [key technologies, e.g., Java, Python, TypeScript, React, AWS], I am excited about the opportunity to contribute to your team.
+
+In my current/most recent role at [Current/Previous Company], I was responsible for [1-2 main responsibilities]. I [implemented/built/led] [specific project or feature], which resulted in [quantifiable outcome, e.g., performance improvements, reduced costs, higher reliability]. This experience strengthened my skills in [relevant skills, e.g., microservices, APIs, cloud services, CI/CD] and taught me how to deliver high‑quality solutions in an agile environment.
+
+I am particularly drawn to [Company Name] because of your focus on [product/mission/technology], and I admire [specific aspect you genuinely like, e.g., open‑source contributions, engineering culture, domain]. I believe my experience with [relevant domain or tech, e.g., distributed systems, fintech, e‑commerce, AI] and my commitment to writing clean, maintainable code would help your team achieve its goals.
+
+Beyond my technical skills, I value collaboration, clear communication, and continuous learning. I regularly [code review / mentor juniors / contribute to open source / participate in architecture discussions], and I enjoy working closely with product and design to ensure we build solutions that truly solve user problems.
+
+I would welcome the opportunity to discuss how my skills and experience align with the needs of [Company Name]. Thank you for considering my application. I look forward to the possibility of speaking with you.
+\\\\
+
+Sincerely,\\
+Max Mustermann"
