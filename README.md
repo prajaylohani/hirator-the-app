@@ -80,6 +80,7 @@ You can also select an image (if the document template supports) using `Select i
 - [ ] add note to use unescaped characters (like colon : ) in double quotes, like `"Master Thesis: XYZ"`
 - [ ] remove softskills section
 - [ ] certifications.name to certifications.title (updated in the table below)
+- [ ] gradient color example (refer tikzpicture): sidebarcolor: top color=LightSkyblue!20, bottom color=DarkSeaGreen!20
 
 | Name | Description | Type | Default | Options |
 | - | - | - | - | - |
